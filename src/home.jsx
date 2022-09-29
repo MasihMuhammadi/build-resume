@@ -162,7 +162,6 @@ const Home = () =>{
 <button className="btn btn-success mx-2" onClick={clickedTemplate2}>Template2</button>
   </div>
   
-
 </div>
   </div>
   }
