@@ -157,7 +157,7 @@ const Home = () =>{
    <br /><br />
     
   <input type="file" multiple={false} onChange={enterProfPicture} /><br />
-<br />
+<br /> 
 <button  className="btn btn-success" onClick={clicked}>Template 1</button> 
 <button className="btn btn-success mx-2" onClick={clickedTemplate2}>Template2</button>
   </div>
