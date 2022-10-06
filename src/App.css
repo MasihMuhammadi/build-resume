@@ -98,3 +98,78 @@ ul li a:hover{
   
     
 }
+
+.wallpaper{
+   background-image: url('wallpaper.jpg');
+    width:100%;
+    height:100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+  }
+  
+.wallpaper::after{
+    position: absolute;
+    width:100%;
+    height:100vh;
+    content:'';
+    background:black;
+    opacity:0.5;
+}
+.bio{
+      margin-top:-135px;
+    position: relative;
+    top:200px;
+    left:40px;
+    color:white;
+    font-size:48px;
+    z-index:1000;
+}
+.build{
+    animation-name: bio;
+    animation-duration: 8s;
+    animation-delay:0s;
+    animation-iteration-count: 1;
+    transition: 0.3s 3s ;
+   
+}
+.choose{
+    animation-name: bio;
+    animation-duration: 20s;
+    animation-delay:0s;
+    animation-iteration-count: 1;
+   
+}
+
+@keyframes bio{
+    0%{opacity:0;}
+    25%{opacity:0.7}
+    50%{opacity:0.4}
+    75%{opacity:0.6}
+    100%{opacity:1}
+}
+.bigResume{
+    font-size:56px;
+    position:relative;
+    left:65px;
+}
+.getStarted{
+    position:absolute;
+    top:450px;
+    left:750px;
+    border-radius:20px;
+    padding:10px;
+    height:50px;
+    width:200px;
+    background:white;
+    color:black;
+    text-align:center;
+    z-index:10000;
+    text-transform: uppercase;
+    cursor:pointer;
+    font-weight: bold;
+    border:2px solid black;
+    
+}
+
+

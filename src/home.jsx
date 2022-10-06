@@ -6,7 +6,7 @@ import Resume from './resume';
 import Template1 from './template1';
 import Template2 from './template2'
 import Templates from './templates'
-
+import Animation from './animation'
 
 const Home = () =>{
   const [name,setName] = useState('')
@@ -124,6 +124,7 @@ const Home = () =>{
   return(
     <>
 
+  <Animation />
     
     
 {showInputes && <div className='container'>

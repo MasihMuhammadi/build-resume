@@ -4,7 +4,7 @@ import {Link,Outlet} from 'react-router-dom'
 import Header from './header'
 import FullBody from './fullBody'
 
-const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,location,linkedin,facebook,github,phone,education,startDate,endDate,language,level,projects,intrests}) =>{
+const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,location,linkedin,  acebook,github,phone,education,startDate,endDate,language,level,projects,intrests}) =>{
         
   const [headerColor,setHeaderColor] = useState('');
   const [headerFontColor,setHeaderFontColor] = useState('');
@@ -38,7 +38,7 @@ const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,
   }
     return (
     <>
-
+     
             <div className='resume '>
                 <table>
                   <tr>
