@@ -15,11 +15,14 @@ input{
 
 .register-inputes,.contact-input{
     width:100%;
+    /* border:none;
+    outline: none; */
     height:3px;
     padding:5px;
     outline:none;
     box-sizing: border-box;
-    border:1px solid black;
+
+    border-bottom:1px solid black;
 }
 
 .register{
@@ -34,6 +37,7 @@ input{
 
 input:focus{
     height:34px;
+
     transition: 0.5s 0s;
 }
 .customeResume{
@@ -53,10 +57,6 @@ input:focus{
     position:relative;
     bottom:10%;
     left:30%;
-}
-.templates{
-
-   
 }
 
 
@@ -165,7 +165,6 @@ ul li a:hover{
 .bio1{
     position:absolute;
     font-size:30px;
-   background-color:rgba(22, 18, 18,0.0);
     color:white;
     align-items: center;
     top:130px;
@@ -178,12 +177,12 @@ ul li a:hover{
     content:'';
     position:absolute;
     left:0;
-    background-color:rgba(22, 18, 18);
-    color:white;
+    background:rgba(24, 23, 23,0.95);
+    z-index:10000;
     height: 100%;
     width:100%;
     border-left:2px solid whitesmoke;
-    animation:animate  2.8s steps(15) infinite;
+    animation:animate  3.3s steps(15) infinite;
     
 
 }
@@ -266,28 +265,63 @@ label{
     bottom:-8px;
     color:white;
 }
-.forms{
-    box-shadow: 0 5px 30px 10px rgba(255,255,255,0.3);
+.box{
+    box-shadow: 0 5px 40px 10px rgba(255,255,255,0.3);
+    position:relative;
     border-radius:10px;
     width:60vh;
     height:80vh;
-    display:flex;
-    justify-content: center;
-    background-color: white; 
+    background-color:  white;
+    overflow: hidden;
+    padding:20px;
+
+}
+.box::before{
+    content:'';
+    position: absolute;
+    width:60vh;
+    height:80vh;
+    left:-50%;
+    top:-50%;
+    transform-origin: bottom right;
+    background:linear-gradient(0deg,transparent,rgb(24, 23, 23),
+    rgb(24, 23, 23));
+    animation:form-animate 6s linear infinite;
+}
+.box::after{
+    content:'';
+    position: absolute;
+    padding:5px;
+    width:60vh;
+    height:80vh;
+    left:-50%;
+    top:-50%;
+    transform-origin: bottom right;
+    background:linear-gradient(0deg,transparent,rgb(24, 23, 23),
+    rgb(24, 23, 23));
+    animation:form-animate 6s linear infinite;
+    animation-delay:-3s;
+}
+.forms{
+    position:absolute;
+    inset: 2px;
+    background-color:white;
+    z-index:10;
+    padding:20px;
 }
 .login-forms{
-    box-shadow: 0 5px 30px 10px rgba(255,255,255,0.3);
-    border-radius:10px;
     width:60vh;
     height:60vh;
-    display:flex;
-    justify-content: center;
-    background-color: white;
-    
 }
+
+
 .forms>form>h3{
     font-weight:bold;
     margin-top:20px;
+}
+@keyframes form-animate{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
 }
 
 .nav-links{
@@ -382,7 +416,7 @@ label{
     transform:rotate(0deg)
 } 
 .contact-page{
-    background:rgb(107, 103, 103);
+    background:rgb(24, 23, 23);
     display:flex;
     width:100%;
     height:100vh;

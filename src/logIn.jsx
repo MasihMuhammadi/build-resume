@@ -5,8 +5,9 @@ const LogIn = () =>{
     let navigate = useNavigate();
     return <>
   <div className="register">
-                <div className="login-forms">
-                    <form id="form">
+                <div className="box login-forms">
+                  <div className="forms">
+                  <form id="form">
                        <h3 className="pt-2 ps-5">Log In Now ...!</h3><br />
                       
                       <div className="form-group">
@@ -25,6 +26,8 @@ const LogIn = () =>{
                         }}>Log In</Link>
                         </div>
                     </form>
+                  </div>
+                    
                 </div>    
             </div>  
         </>

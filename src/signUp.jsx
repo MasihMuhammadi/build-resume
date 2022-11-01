@@ -6,6 +6,8 @@ const SignUp = () =>{
     return(
          <>
             <div className="register">
+              
+                <div className="box p-5">
                 <div className="forms">
                     <form >
                        <h3 className="pt-2 ps-5">Sign Up Today ...!</h3><br />
@@ -31,7 +33,8 @@ const SignUp = () =>{
                         }}>Log In</Link>
                         </div>
                     </form>
-                </div>    
+                </div> 
+                </div>   
             </div>  
          </>
     )
