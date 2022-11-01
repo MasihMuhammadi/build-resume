@@ -4,7 +4,7 @@ import {Link,Outlet} from 'react-router-dom'
 import Header from './header'
 import FullBody from './fullBody'
 
-const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,location,linkedin,  acebook,github,phone,education,startDate,endDate,language,level,projects,intrests}) =>{
+const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,location,linkedin,facebook, acebook,github,phone,education,startDate,endDate,language,level,projects,intrests}) =>{
         
   const [headerColor,setHeaderColor] = useState('');
   const [headerFontColor,setHeaderFontColor] = useState('');
@@ -40,7 +40,7 @@ const Template1 = ({profPicture,email,name,university,skills,experince,jobTitle,
     <>
      
             <div className='resume '>
-                <table>
+                <table className="">
                   <tr>
                     <td>Header Color:</td><td><input type="color" className="mx-2" name="header_color" onChange={enterHeaderColor} /></td>
                     <td>Header Font Color:</td> <td><input className="mx-2" type="color" name="font_color" onChange={enterHeaderFontColor} /></td>
