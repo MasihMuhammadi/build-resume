@@ -5,26 +5,25 @@ const SignUp = () =>{
     let navigate = useNavigate();
     return(
          <>
-            <div className="register">
-              
-                <div className="box p-5">
-                <div className="forms">
+            <div className="register bg-dark">
+               
+                  <div className="forms signup border px-5 py-3">
                     <form >
-                       <h3 className="text-center mt-2">Sign Up Today ...!</h3><br />
+                       <h3 className="text-center  mt-2">Sign Up Today ...!</h3><br />
                       <div className="form-group">
-                        <label htmlFor="FullName" className="text-dark">Full Name</label><input type="text" id="FullName" className=" register-inputes" />
+                        <label htmlFor="FullName" className=" ">Full Name</label><input type="text" id="FullName" className=" register-inputes" />
                       </div >
                        <div className="form-group">
-                        <label htmlFor="phone" className="text-dark">Phone </label><input type="phone" id="phone" className=" register-inputes" />
+                        <label htmlFor="phone" className=" ">Phone </label><input type="phone" id="phone" className=" register-inputes" />
                        </div>
                       <div className="form-group">
-                        <label htmlFor="email" className="text-dark">Email</label> <input type="email" id="email" className="register-inputes" />
+                        <label htmlFor="email" className=" ">Email</label> <input type="email" id="email" className="register-inputes" />
                       </div>
                        <div className="form-group">
-                        <label htmlFor="password" className="text-dark">Password</label><input type="password"  id="password" className="register-inputes" />
+                        <label htmlFor="password" className=" ">Password</label><input type="password"  id="password" className="register-inputes" />
                         </div>
                        <div className="form-group">
-                        <div   className="mt-3 d-block btn btn-outline-dark" >Register</div>
+                       <div className="btn btn-sm d-block btn-outline-dark mt-3 ">Register </div>
                         </div> 
                         <div className="form-group mt-3">
                         <lable>you already registered?</lable>
@@ -34,7 +33,7 @@ const SignUp = () =>{
                         </div>
                     </form>
                 </div> 
-                </div>   
+                 
             </div>  
          </>
     )

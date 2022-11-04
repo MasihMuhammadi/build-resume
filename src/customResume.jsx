@@ -126,7 +126,7 @@ const CustomResume = () =>{
     <>
   
 
-{showInputes && <div className='customeResume'>
+{showInputes && <div className='customeResume bg-dark'>
   
   <div className='inputes row'>
   <div className="col-6">

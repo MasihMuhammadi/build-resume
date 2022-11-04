@@ -4,7 +4,7 @@ import { Link,Router } from 'react-router-dom';
 
 const Templates = (props) =>{
     return<>
-<div className="template-page pt-5">
+<div className="template-page pt-5 bg-dark">
     <div className="row  mx-3 jusity-content-center">
     <Link to="/templates/customResume" className="col-lg-4 col-md-5 mx-4 mx-lg-0"> 
     <img src="template1.png" width="360" height="500" className="templates"/>
