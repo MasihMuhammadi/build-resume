@@ -10,7 +10,7 @@ const SignUp = () =>{
                 <div className="box p-5">
                 <div className="forms">
                     <form >
-                       <h3 className="pt-2 ps-5">Sign Up Today ...!</h3><br />
+                       <h3 className="text-center mt-2">Sign Up Today ...!</h3><br />
                       <div className="form-group">
                         <label htmlFor="FullName" className="text-dark">Full Name</label><input type="text" id="FullName" className=" register-inputes" />
                       </div >
@@ -24,7 +24,7 @@ const SignUp = () =>{
                         <label htmlFor="password" className="text-dark">Password</label><input type="password"  id="password" className="register-inputes" />
                         </div>
                        <div className="form-group">
-                        <div   className="mt-5 d-block btn btn-outline-dark" >Register</div>
+                        <div   className="mt-3 d-block btn btn-outline-dark" >Register</div>
                         </div> 
                         <div className="form-group mt-3">
                         <lable>you already registered?</lable>

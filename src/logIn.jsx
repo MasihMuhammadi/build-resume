@@ -8,7 +8,7 @@ const LogIn = () =>{
                 <div className="box login-forms">
                   <div className="forms">
                   <form id="form">
-                       <h3 className="pt-2 ps-5">Log In Now ...!</h3><br />
+                       <h3 className="pt-1 ps-5">Log In Now ...!</h3><br />
                       
                       <div className="form-group">
                         <label htmlFor="email" className="text-dark">Email</label> <input type="email" id="email" className="register-inputes" />
@@ -17,13 +17,13 @@ const LogIn = () =>{
                         <label htmlFor="password" className="text-dark">Password</label><input type="password" id="password"  className="register-inputes" />
                         </div>
                        <div className="form-group">
-                        <div   className="mt-5 d-block btn btn-outline-dark" >Log In</div>
+                        <div   className="mt-3 d-block btn btn-outline-dark" >Log In</div>
                         </div> 
                         <div className="form-group mt-3">
                         <lable>you haven't account?</lable>
                         <Link to="/signUp" onClick={()=>{
                           navigate('signUp');
-                        }}>Log In</Link>
+                        }}>Sign Up</Link>
                         </div>
                     </form>
                   </div>

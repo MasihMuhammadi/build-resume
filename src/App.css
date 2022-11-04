@@ -34,10 +34,8 @@ input{
     border-radius: 5px;
 }
 
-
 input:focus{
-    height:34px;
-
+    height:33px;
     transition: 0.5s 0s;
 }
 .customeResume{
@@ -273,7 +271,7 @@ label{
     height:80vh;
     background-color:  white;
     overflow: hidden;
-    padding:20px;
+    padding:10px;
 
 }
 .box::before{
@@ -307,17 +305,17 @@ label{
     inset: 2px;
     background-color:white;
     z-index:10;
-    padding:20px;
+    padding:10px;
 }
 .login-forms{
     width:60vh;
-    height:60vh;
+    height:55vh;
 }
 
 
 .forms>form>h3{
     font-weight:bold;
-    margin-top:20px;
+   
 }
 @keyframes form-animate{
     0%{transform: rotate(0deg);}

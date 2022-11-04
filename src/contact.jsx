@@ -28,7 +28,7 @@ const Contact = () =>{
 
                 </form>
 
-                    <p className="text-center text-light mt-2">also Your's can visit me in <span>&#128071;</span></p>
+                    <p className="text-center text-light mt-2">also Your can visit me in <span>&#128071;</span></p>
                    <div className='icons text-center'>
                         <a href="#"><img className="mx-3" src="../gmail.png" /></a> 
                         <a href="https://www.wa.whatsapp.me/+93749102014" ><img className="mx-3" src="../whatsapp.png" /></a> 
