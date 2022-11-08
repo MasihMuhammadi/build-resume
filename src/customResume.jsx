@@ -8,6 +8,7 @@ import Template2 from './template2'
 import Templates from './templates'
 import Home from './home'
 import Joi from 'joi';
+import axios from 'axios';
 
 const CustomResume = () =>{
   const [name,setName] = useState('')
@@ -34,14 +35,13 @@ const CustomResume = () =>{
   const [level,setLevel] = useState();
   const [level2,setLevel2] = useState();
   const [projects,setProjects] = useState('');
-  const [profPicture,setProfPicture] = useState('');
+  const [profPicture,setProfPicture] = useState();
   const [intrests,setIntrests] = useState('');
   const [showTemplate2,setShowTemplate2] = useState(false);
   const [addLanguage,setAddLanguage] = useState()
 
   const enterName = (event) =>{
     setName(event.target.value)
-  
   }
   const enterEmail = (event) =>{
     setEmail(event.target.value);
@@ -94,8 +94,8 @@ const CustomResume = () =>{
     setProjects(event.target.value)
    }
    const enterProfPicture = (event) =>{
-    const [p] = event.target.files;
-    console.log(p)
+    
+    setProfPicture(event.target.files[0])
    }
    const enterIntrests = (event) =>{
     setIntrests(event.target.value)
@@ -120,6 +120,13 @@ const CustomResume = () =>{
   const clickedTemplate2 = (event) =>{
     setShowTemplate2(true)
     setShowInputes(false)
+  }
+  const handleApi = async () =>{
+    const formData = new FormData();
+    formData.append('image',profPicture)
+  await  axios.post('/templates/customeResume',formData).then((res) =>{
+      console.log(res);
+    })
   }
 
   return(
@@ -171,6 +178,7 @@ const CustomResume = () =>{
     
   <input type="file" multiple={false} onChange={enterProfPicture} /><br />
 <br /> 
+    <button onClick={handleApi}>submit</button>
   </div>
   
 </div>

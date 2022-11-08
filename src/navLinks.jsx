@@ -16,7 +16,7 @@ const NavLinks = () =>{
                         <Link className="navs d-none d-sm-block " to="/">Home</Link>
                      </li> 
                     <li className="mx-5">
-                        <Link className="navs d-none d-sm-block " to="templates">Resume</Link>
+                        <Link className="navs d-none d-sm-block " to="templates">Templates</Link>
                     </li> 
                     <li className="me-5">
                         <Link className=" navs d-none d-sm-block " to="Contact">Contact</Link>
