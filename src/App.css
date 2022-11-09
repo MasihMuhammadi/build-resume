@@ -13,7 +13,6 @@ input{
 }
 .register-inputes,.contact-form{
     width:100%;
- 
     padding:5px;
     outline:none;
     box-sizing: border-box;
@@ -30,8 +29,9 @@ button.w-100:active{
 
 .register{
     display:flex;
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
+    min-height:100vh;
     height:100vh;
     border-radius: 5px;
 }
@@ -45,6 +45,19 @@ button.w-100:active{
     padding:0px 0px 0px 8vh;
     align-items:center;
     justify-content: center;
+}
+.creatResume{
+    height:100vh;
+    width:100vh;
+}
+.creatResume>div{
+    
+    width:100px;
+    height:300px;;
+    background:white;
+}
+.creatResume>div>input{
+    width:100px;
 }
 
 .templates{
@@ -82,7 +95,7 @@ b{
     
 }
 textarea{
-    height:150px;
+    height:130px;
     width:100%;
     padding:4px;
   
@@ -180,32 +193,18 @@ ul li a:hover{
     .bio1{
         font-size:40px;
     }
-
+     
+}
+@media (max-height:350px) {
+   
     
 }
+
 
 @keyframes animate {
    100%{left:110%;}
    
 }
-/* 
- .poem>.bio2{
-    color:white;
-    position: absolute;
-    animation-name:bio2;
-    animation-duration: 12s;
-    animation-delay:5s;
-    animation-iteration-count: infinite;
-    font-size: 40px;
-    top:-95px;
-    
-
-}
-@keyframes bio2 {
-    0%{display:block;top:-91px;}
-    
-    100%{top:95px;}
-}  */
 
 .bigResume{
     font-size:56px;
@@ -259,23 +258,79 @@ ul li a:hover{
 
 
 .signup{
-    width:55vh;
-    height: 65vh;
+    position:absolute;
+    width:350px;
+    height:420px;
+    inset: 2px;
     background:white;
     border-radius:20px;
-    box-shadow: 0px 15px 20px 15px black;
     
 }
 .login{
-    
-    width:55vh;
-    height: 60vh;
+    position:absolute;
+    width:350px;
+    height:380px;
+    inset: 2px;
     background:white;
     border-radius:20px;
-    box-shadow: 0px 15px 20px 15px black;
-    
+  
+}
+.box-signUp{
+    position:relative;
+    width:355px;
+    height: 420px;
+    background:white;
+    border-radius:20px;
+    overflow: hidden;
 
 }
+.box-signUp::before{
+    content: '';
+    width:355px;
+    height:420px;
+    top:-50%;
+    left:-50%;
+    position:absolute;
+    background: linear-gradient(0deg,transparent,black,black);
+    animation: animate 6s linear infinite;
+    transform-origin: bottom right;
+    overflow: hidden;
+    
+}
+.box-login{
+    position:relative;
+    width:355px;
+    height: 385px;
+    background:white;
+    border-radius:20px;
+    overflow: hidden;
+
+}
+.box-login::before{
+    content: '';
+    width:350px;
+    height:380px;
+    top:-50%;
+    left:-50%;
+    position:absolute;
+    background: linear-gradient(0deg,transparent,black,black);
+    animation: animate 6s linear infinite;
+    transform-origin: bottom right;
+    overflow: hidden;
+    
+}
+
+
+@keyframes animate {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+    
+}
+
 
 .forms>form>h3{
     font-weight:bold;  
@@ -314,7 +369,7 @@ ul li a:hover{
     z-index:100000000;
     opacity:0.987;
     animation-name: showNavbar;
-    animation-duration: 2s;
+    animation-duration: 1.3s;
     animation-delay:0s;
     animation-iteration-count: 1;
     transform: translateY(-680deg);
@@ -351,7 +406,7 @@ ul li a:hover{
     z-index:100000000;
     opacity:0.987;
     animation-name: hideNavbar;
-    animation-duration: 1.4s;
+    animation-duration: 1.3s;
     animation-delay:0s;
     animation-iteration-count: 1;
     transform:translateY(-680px);
@@ -375,18 +430,18 @@ ul li a:hover{
     transform:rotate(0deg)
 } 
 .contact-page{
-
     display:flex;
     width:100%;
     height:100vh;
     align-items:center;
+    overflow: hidden;
     justify-content: center;
 }
 .contact-form{
     
     margin-top:90px;
-    width:55vh;
-    height:95vh;
+    width:380px;
+    height:650px;
     padding:5px;
 }
 
