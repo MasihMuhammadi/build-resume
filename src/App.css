@@ -185,7 +185,7 @@ ul li a:hover{
     height: 100%;
     width:100%;
     border-left:2px solid whitesmoke;
-    animation:animate  3.3s steps(15) infinite;
+    animation:bio  3.3s steps(15) infinite;
     
 
 }
@@ -201,7 +201,7 @@ ul li a:hover{
 }
 
 
-@keyframes animate {
+@keyframes bio {
    100%{left:110%;}
    
 }
