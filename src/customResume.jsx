@@ -112,31 +112,16 @@ const CustomResume = () =>{
     <input type="text" className="ms-3 mt-1" placeholder="Enter the level:" onChange={enterNewLevel}/></div>)
   }
   
-  const clicked = (event) =>{  
-    event.preventDefault();
-    setShowResume(true)
-    setShowInputes(false)      
-  }
-  const clickedTemplate2 = (event) =>{
-    setShowTemplate2(true)
-    setShowInputes(false)
-  }
-  const handleApi = async () =>{
-    const formData = new FormData();
-    formData.append('image',profPicture)
-  await  axios.post('/templates/customeResume',formData).then((res) =>{
-      console.log(res);
-    })
-  }
+
 
   return(
     <>
-  
 
-{showInputes && <div className='customeResume bg-dark'>
+
+<div className='customeResume bg-dark'>
   
   <div className='inputes row'>
-  <div className="col-6">
+  <div className="col-7">
   <label htmlFor="name">Name</label> <input  type="text" id="name" onChange={enterName} placeholder="enter your name" required /> <br />
   <small className='text-danger'>the field is required *</small>
   <br />
@@ -151,12 +136,10 @@ const CustomResume = () =>{
   <small className='text-danger'>the field is required *</small><br />
   <label htmlFor="education">Education</label> <textarea      id="education" onChange={enterEducation}></textarea><br />
     <small className='text-danger'>the field is required *</small><br />
-  <input type="number" className="ms-3"  min="2000" max="2022" onChange={enterStartDate} placeholder="start Date"/>
-  <input className='ms-3 mt-2' type="number" min="2004" max="2025" onChange={enterEndDate} placeholder="end Date"/><br />
+  <input type="number" className=""  min="2000" max="2022" onChange={enterStartDate} placeholder="start Date"/>
+  <input className=' mt-2' type="number" min="2004" max="2025" onChange={enterEndDate} placeholder="end Date"/><br />
   
-
-  </div>
-  <div className="col-5 ">
+  <div className=" ">
   <label htmlFor="linkedin">Linkedin Url</label> <input type="text" id="linkedin" onChange={enterLinkedin} placeholder=" your linkedin Url" /><br />
   <label htmlFor="facebook">Facebook Url</label><input type="text"  id="facebook" onChange={enterFacebook} placeholder=" your facebook username" /><br />
   <label htmlFor="github">Github</label> <input type="text"         id="github"   onChange={enterGithub} placeholder=" your github username" /><br />
@@ -178,13 +161,20 @@ const CustomResume = () =>{
     
   <input type="file" multiple={false} onChange={enterProfPicture} /><br />
 <br /> 
-    <button onClick={handleApi}>submit</button>
+   
   </div>
+
+  </div>
+
+ <div className="col-5">
+
+  
+ </div>
   
 </div>
   </div>
-  }
-{showResume && <Resume name={name} skills={skills} university={university} experince={exp} jobTitle={jobTitle} 
+  
+{/* {showResume && <Resume name={name} skills={skills} university={university} experince={exp} jobTitle={jobTitle} 
 email={email} location={location} linkedin={linkedin} facebook={facebook} phone={phone} github={github}  education={education} startDate={startDate} endDate={endDate}
 
 language={language} level={level} projects={projects} profPicture={profPicture} intrests={intrests}
@@ -195,7 +185,7 @@ email={email} location={location} linkedin={linkedin} facebook={facebook} phone=
 language={language} level={level} projects={projects} profPicture={profPicture} intrests={intrests}
 
 language2={language2} level2={level2}
-/>}
+  />} */}
   </>)
 }
 export default CustomResume; 

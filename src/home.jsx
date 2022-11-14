@@ -11,6 +11,7 @@ import Contact from './contact'
 import Template1 from './template1'
 import Error from './error'
 import Templates from './templates';
+import Template2 from './template2';
 const Home = () =>{
     const [navbar,setNavbar] = useState('d-none');
     const [burgerClick,setBurgerClick] = useState();
@@ -72,7 +73,8 @@ return<>
             <Route path="contact" element={<Contact />} />
             <Route path="template1" element={<Template1 />} />
             <Route path="*" element={<Error />} />
-            <Route path="templates/customResume" element={<CustomResume />} />
+            <Route path="/templates/template2" element={<Template2 />} />
+
 
 
             <Route />

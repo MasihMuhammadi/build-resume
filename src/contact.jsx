@@ -30,10 +30,10 @@ const Contact = () =>{
 
                     <p className="text-center text-light mt-2">also Your can visit me in <span>&#128071;</span></p>
                    <div className='icons text-center'>
-                        <a href="#"><img className="mx-3" src="../gmail.png" /></a> 
-                        <a href="https://wa.me/+93749102015" ><img className="mx-3" src="../whatsapp.png" /></a> 
-                        <a href="https://www.github.com/MasihMuhammadi" ><img className="mx-3" src="../github.png" /></a>  
-                        <a href="https://www.instagram.com/ma_3ih.qara___202"><img className="mx-3" src="../instagram.png" /></a>     
+                        <a  href="#"><img className="mx-3" src="../gmail.png" /></a> 
+                        <a  target="_blank" href="https://wa.me/+93749102015" ><img className="mx-3" src="../whatsapp.png" /></a> 
+                        <a  target="_blank" href="https://www.github.com/MasihMuhammadi" ><img className="mx-3" src="../github.png" /></a>  
+                        <a  target="_blank" href="https://www.instagram.com/ma_3ih.qara___202"><img className="mx-3" src="../instagram.png" /></a>     
                    </div>
 
 

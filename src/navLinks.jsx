@@ -16,7 +16,8 @@ const NavLinks = () =>{
                         <Link className="navs d-none d-sm-block " to="/">Home</Link>
                      </li> 
                     <li className="mx-5">
-                        <Link className="navs d-none d-sm-block " to="templates">Templates</Link>
+                        <Link className="navs d-none d-sm-block " to="templates">Templates
+                        </Link>
                     </li> 
                     <li className="me-5">
                         <Link className=" navs d-none d-sm-block " to="Contact">Contact</Link>
@@ -25,7 +26,7 @@ const NavLinks = () =>{
                         <Link className="navs d-none d-sm-block " to="signUp">Sign Up</Link>
                      </li> 
                     <li>
-                        <Link  className="navs d-none d-sm-block"  to="logIn">Log In</Link>
+                        <Link  className="navs d-none d-sm-block" to="logIn">Log In</Link>
                     </li>  
             
             </ul>

@@ -5,26 +5,75 @@
     overflow-x: hidden;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+.resume{
+    background-color: white;
+    padding:20px;
+}
 
-input{
+
+.inputes{
     width:100%;
+    height:100vh;
+}
+input,textarea{
     border-radius:10px;
     padding:5px;
 }
-.register-inputes,.contact-form{
-    width:100%;
-    padding:5px;
-    outline:none;
-    box-sizing: border-box;
-    border-bottom:1px solid black;
+input:focus{
+   outline:black;
+   border:3px solid skyblue;
+   box-shadow:10px;
 }
+.partOne{
+    animation:  come 1s linear 1;
+    animation-delay: 0s;
+}
+.partTwo{
+    
+    animation:  come 1s linear 1;
+    animation-delay: 0s;
+}
+.partThree{
+    animation:  come 1s linear 1;
+    animation-delay: 0s;
+
+}
+@keyframes come {
+    from{transform:translateX(-680px);}
+    to{transform:translateY(0px);}
+}
+
 label{
 position:relative;
 bottom:-8px;
+
 }
+
+
+.partOne>input{
+    color:white;
+    margin-bottom:10px;
+
+}
+.partTwo>label{
+margin-top:10px;
+color:rgb(221, 221, 221);
+}
+.partThree>form>label{
+    margin-top:10px;
+    color:whitesmoke;
+}
+
+
+/* .partOne>form>input{
+    width:45%;
+}
+.show-part2>form>input{
+    width:100%;
+} */
+
 button.w-100:active{
     box-shadow: 0px;
-
 }
 
 .register{
@@ -35,20 +84,27 @@ button.w-100:active{
     height:100vh;
     border-radius: 5px;
 }
+.register-inputes,.contact-input{
+    width:100%;
+}
+.register-inputes:focus{
+    
+    border:2px solid skyblue;
+}
 .customeResume{
     width:100%;
     padding:45px 10px 10px 10px;  
 }
 .template-page{
-    width:100%;
-    height:100%;
-    padding:0px 0px 0px 8vh;
+    display:flex;
     align-items:center;
     justify-content: center;
+    width:100%;
+    height:100%;
 }
 .creatResume{
-    height:100vh;
-    width:100vh;
+   width:100%;
+   height:100%;
 }
 .creatResume>div{
     
@@ -61,10 +117,20 @@ button.w-100:active{
 }
 
 .templates{
- margin:0px 0px 15px 10px;
- align-items: center;
- justify-content: center;
+    width:320px;
+     height:500px;
+    margin:5px 5px 0px 5px;
+    align-items: center;
+    justify-content:center;
 }
+.shadow{
+    background-color: rgb(219, 211, 211);
+    opacity:0.9;
+    border-top-left-radius:100px;
+    border-top-right-radius:40px;
+
+}
+
 .templates:hover{
     opacity:0.3;
 }
@@ -96,9 +162,15 @@ b{
 }
 textarea{
     height:130px;
-    width:100%;
+    width:90%;
     padding:4px;
   
+}
+.prof2{
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+    border:2px solid rgb(120, 120, 196);
 }
 .prof{
     width:90px;
@@ -193,11 +265,65 @@ ul li a:hover{
     .bio1{
         font-size:40px;
     }
+    input{
+        width:410px;
+    }
+    textarea{
+        width:410px;
+    }
      
 }
-@media (max-height:350px) {
-   
-    
+
+@media (max-width:580px){
+ .inputes{
+        display:block;
+        align-items: center;
+        justify-content: center;
+    }
+ 
+}
+@media (min-width:580px){
+    .inputes{
+           display:block;
+           align-items: center;
+           justify-content: center;
+    }
+   }
+
+@media (max-width:460px){
+    input{
+        
+        width:50px;
+    }
+}
+
+@media(min-width:768px){
+    .inputes{
+        display:block;
+        justify-content: center;
+    }
+    input{
+        width:410px;
+       ;
+    }
+    textarea{
+        width:410px;
+    }
+}
+
+@media(max-width:768px){
+    .inputes{
+        display:block;
+        align-items: center;
+        justify-content: center;
+    }
+    input{
+        width:210px;
+    }
+    textarea{
+        width:210px;
+    }
+ 
 }
 
 
@@ -432,7 +558,7 @@ ul li a:hover{
 .contact-page{
     display:flex;
     width:100%;
-    height:100vh;
+    height:100%;
     align-items:center;
     overflow: hidden;
     justify-content: center;

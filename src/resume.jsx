@@ -40,7 +40,7 @@ const Resume = ({profPicture,email,name,university,skills,experince,jobTitle,loc
     <>
 
             <div className='resume '>
-                <table>
+                {/* <table>
                   <tr>
                     <td>Header Color:</td><td><input type="color" className="mx-2" name="header_color" onChange={enterHeaderColor} /></td>
                     <td>Header Font Color:</td> <td><input className="mx-2" type="color" name="font_color" onChange={enterHeaderFontColor} /></td>
@@ -53,7 +53,7 @@ const Resume = ({profPicture,email,name,university,skills,experince,jobTitle,loc
                    
                     <td>Titles Font Color:</td><td><input type="color" className="mx-2" onChange={enterTitleFontColor} /></td>
                   </tr>
-                </table>
+                </table> */}
                 <Header name={name} jobTitle={jobTitle} headerColor={headerColor} headerFontColor={headerFontColor} profPicture={profPicture}/>
                 
                 <div className='row ps-3' style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}}>
