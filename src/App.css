@@ -14,8 +14,16 @@
 .inputes{
     width:100%;
     height:100vh;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding:5px 20px 5px 20px;
+    
 }
 input,textarea{
+   width:100%;
+   height:45px;
     border-radius:10px;
     padding:5px;
 }
@@ -45,14 +53,17 @@ input:focus{
 
 label{
 position:relative;
-bottom:-8px;
+
 
 }
+input{
+    height:45px;
+    margin-bottom: 5px;
+}
 
-
-.partOne>input{
+.partOne>label{
     color:white;
-    margin-bottom:10px;
+    
 
 }
 .partTwo>label{
@@ -83,12 +94,13 @@ button.w-100:active{
     min-height:100vh;
     height:100vh;
     border-radius: 5px;
+    
 }
 .register-inputes,.contact-input{
     width:100%;
+    margin-bottom: 5px;
 }
 .register-inputes:focus{
-    
     border:2px solid skyblue;
 }
 .customeResume{
@@ -265,66 +277,19 @@ ul li a:hover{
     .bio1{
         font-size:40px;
     }
-    input{
-        width:410px;
-    }
-    textarea{
-        width:410px;
-    }
-     
-}
-
-@media (max-width:580px){
- .inputes{
-        display:block;
-        align-items: center;
-        justify-content: center;
-    }
+    
  
-}
-@media (min-width:580px){
-    .inputes{
-           display:block;
-           align-items: center;
-           justify-content: center;
-    }
-   }
-
-@media (max-width:460px){
-    input{
-        
-        width:50px;
-    }
-}
-
-@media(min-width:768px){
-    .inputes{
-        display:block;
-        justify-content: center;
-    }
-    input{
-        width:410px;
-       ;
-    }
-    textarea{
-        width:410px;
-    }
+     
 }
 
 @media(max-width:768px){
     .inputes{
         display:block;
-        align-items: center;
         justify-content: center;
+        align-items: center;
     }
-    input{
-        width:210px;
-    }
-    textarea{
-        width:210px;
-    }
- 
 }
+
 
 
 @keyframes bio {

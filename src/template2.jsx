@@ -148,8 +148,8 @@ const Template2 = () =>{
   return(<>
       <div className=''>
   
-  <div className='inputes bg-dark pt-5 row'>
-  <div className="col-6 col-md-8">
+  <div className='inputes bg-dark pt-5 '>
+  <div className="">
 
     <div className={`mx-2 ${partOne} text-light`}>
      <label htmlFor="name">Name</label>  <br /> 
@@ -229,7 +229,7 @@ const Template2 = () =>{
   </div> 
  
 
-  <div className=" col-6 bg-sm-info col-md-4 d-none d-lg-block">
+  <div className="  d-none d-lg-block">
     <div className="template2 bg-white mx-2">
 
       <div className="row">
