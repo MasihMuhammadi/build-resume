@@ -27,8 +27,6 @@ const SignUp = ( value) =>{
     val_email = value.email;
     val_password = value.password;
     
-
-    
   }
 
 const {values,touched,isSubmitting ,handleChange,handleSubmit,errors} = useFormik({
@@ -55,7 +53,6 @@ const {values,touched,isSubmitting ,handleChange,handleSubmit,errors} = useFormi
                       <div className="form-group">
                         <label htmlFor="name" >Name</label>
                         <input value={values.name} onChange={handleChange}   type="text" id="name" className=" register-inputes" />
-                      
                         {errors.name && touched.name &&  <small className="text-danger">{errors.name}</small> }
                       </div >
 

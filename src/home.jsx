@@ -8,10 +8,15 @@ import CreatResume from './createResume';
 import NavLinks from './navLinks';
 import AnotherHome from './anotherHome';
 import Contact from './contact'
-import Template1 from './template1'
 import Error from './error'
 import Templates from './templates';
-import Template2 from './template2';
+import Template1 from '../src/templates/template1'
+import Template2 from '../src/templates/template2';
+import Template3 from '../src/templates/template3';
+import Template4 from '../src/templates/template4';
+
+
+
 const Home = () =>{
     const [navbar,setNavbar] = useState('d-none');
     const [burgerClick,setBurgerClick] = useState();
@@ -71,9 +76,11 @@ return<>
             <Route path="templates" element={<Templates />} />
             <Route path="creatResume" element={<CreatResume />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="template1" element={<Template1 />} />
             <Route path="*" element={<Error />} />
+            <Route path="/templates/template1" element={<Template1 />} />
             <Route path="/templates/template2" element={<Template2 />} />
+            <Route path="/templates/template3" element={<Template3 />} />
+            <Route path="/templates/template4" element={<Template4 />} />
 
 
 

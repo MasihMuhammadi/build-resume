@@ -10,41 +10,81 @@
     padding:20px;
 }
 
-
 .inputes{
     width:100%;
     height:100vh;
     display:flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding:5px 20px 5px 20px;
+    padding:5px 50px 5px 20px;
+    word-wrap: wrap;
+    line-break:break-all;
     
+}
+.skill-level{
+background-color: white;
+width:40px;
+height:40px;
+border-radius: 50%;   
+border:1px solid black;
+font-size:13px;
+margin-left:10px;
+display:inline-flex;
+align-items:center;
+padding:3px;
+cursor:none;
+user-select: none;
+}
+.skill-level:hover{
+    background:black;
+    color:white;
+  
+    cursor:pointer;
+}
+.template2{
+    width:70vh;
+    font-size:14px;
+}
+
+ 
+.showLive{
+    padding:0px 25px 0px 25px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  
+}
+
+.one,.two{
+    
+    word-wrap: wrap;
+    line-break:break-all;
 }
 input,textarea{
    width:100%;
    height:45px;
-    border-radius:10px;
+    border-radius:7px;
     padding:5px;
+    
 }
 input:focus{
    outline:black;
    border:3px solid skyblue;
    box-shadow:10px;
 }
-.partOne{
-    animation:  come 1s linear 1;
-    animation-delay: 0s;
+input[type=color]{
+width:50px;
+height:50px;
+border-radius: 50%;
+outline:none;
+border:none;
+fill:none;
+margin:5px 20px 0px 0px;
 }
-.partTwo{
-    
+.partOne,.partTwo,.partThree,.partFour,.partFive{
     animation:  come 1s linear 1;
     animation-delay: 0s;
-}
-.partThree{
-    animation:  come 1s linear 1;
-    animation-delay: 0s;
-
 }
 @keyframes come {
     from{transform:translateX(-680px);}
@@ -54,25 +94,28 @@ input:focus{
 label{
 position:relative;
 
-
-}
-input{
-    height:45px;
-    margin-bottom: 5px;
 }
 
 .partOne>label{
-    color:white;
-    
-
+    color:white;  
 }
 .partTwo>label{
-margin-top:10px;
 color:rgb(221, 221, 221);
 }
 .partThree>form>label{
+    color:whitesmoke;
+}
+.partFour>form>label{
+    margin-top:10px;
+
+    color:whitesmoke;
+}
+.partFive>form>label{
     margin-top:10px;
     color:whitesmoke;
+}
+small{
+    color:rgb(238, 30, 30);
 }
 
 
@@ -99,6 +142,8 @@ button.w-100:active{
 .register-inputes,.contact-input{
     width:100%;
     margin-bottom: 5px;
+
+
 }
 .register-inputes:focus{
     border:2px solid skyblue;
@@ -178,22 +223,42 @@ textarea{
     padding:4px;
   
 }
-.prof2{
-    width:150px;
-    height:150px;
-    border-radius: 50%;
-    border:2px solid rgb(120, 120, 196);
-}
 .prof{
     width:90px;
     height:90px;
     border-radius:10px;
     display:inline;
 }
+.prof2{
+    width:150px;
+    height:150px;
+    border-radius: 50%;
+    border:2px solid rgb(103, 103, 156);
+}
+.prof3{
+    width:150px;
+    height:150px;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border:25px solid rgb(26, 26, 58);
+    stroke-width: 30px;
+}
+.prof4{
+    display:inline-block;
+    width:80px;
+    height:80px;
+
+}
 .languages{
     font-size:14px;
 }
-
+.title-line{
+    margin-top:70px;
+    margin-left:30px;
+    width:150px;
+    height:7px;
+    
+}
 .linkes{
     transition: 0.2s 0.2s;
     width:200px;
@@ -203,6 +268,9 @@ textarea{
     width:240px;
     height:270px;
     transform: scale(1);
+}
+li{
+    list-style-type: disc;
 }
 ul li a{
     text-decoration: none;
@@ -220,13 +288,7 @@ ul li a:hover{
 .certified:hover{
     color:gray;
 }
-.skills{
-    background:gray;
-    border-radius:5px;
-    width:fit-content;
-    padding:5px;
-    margin-top:7px;
-}
+ 
 
 .wallpaper{
    background-image: url('../wallpaper2.jpg');
@@ -247,6 +309,14 @@ ul li a:hover{
     opacity:0.85;
 }
 
+#animation{
+    width:450px;
+    position:absolute;
+    top:300px;
+    right:40px;
+    align-items:center;
+    z-index:0;
+}
 
 
 .bio1{
@@ -273,12 +343,11 @@ ul li a:hover{
     
 
 }
+
 @media (min-width:1024px){
     .bio1{
         font-size:40px;
     }
-    
- 
      
 }
 
@@ -287,6 +356,10 @@ ul li a:hover{
         display:block;
         justify-content: center;
         align-items: center;
+    }
+    
+    #animation{
+        display:none;
     }
 }
 

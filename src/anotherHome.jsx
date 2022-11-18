@@ -16,20 +16,19 @@ const AnotherHome = () =>{
  
     
     return(<>
+<div className='home bg-dark mb-4'>
+
     <div className='wallpaper'>
-
-
         <Link to="/creatResume" className="getStarted float-sm-end">Get Started</Link>
 
     
             <h4 className='bio1'>build Your Resume</h4>
-            {/* <h4 className="bio2">{choose}</h4> */}
-        
-
-        {/* <img className='mockup' src="mockup1.jpg" />
-        <img className='mockup' src="mockup2.jpg" /> */}
+                
+            <img src="../PJFG.gif" id="animation"/>
+            
    </div>
     
+</div>
     </>
     )
     
