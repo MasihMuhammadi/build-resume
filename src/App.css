@@ -18,7 +18,7 @@
     justify-content: space-between;
     padding:5px 50px 5px 20px;
     word-wrap: wrap;
-    line-break:break-all;
+    line-break:auto;
     
 }
 .skill-level{
@@ -42,30 +42,37 @@ user-select: none;
     cursor:pointer;
 }
 .template2{
-    width:70vh;
+    
     font-size:14px;
 }
 
  
 .showLive{
-    padding:0px 25px 0px 25px;
+    padding:0px 15px 0px 15px;
     margin-top:10px;
     display:flex;
     align-items:center;
     justify-content:center;
-  
+
+    box-sizing:border-box;
+   
+}
+.pure-cv{
+    width:100%;
+    height:100%;
+    overflow: scroll;
 }
 
+
 .one,.two{
-    
     word-wrap: wrap;
-    line-break:break-all;
+    line-break:auto;
 }
 input,textarea{
    width:100%;
    height:45px;
-    border-radius:7px;
-    padding:5px;
+   border-radius:7px;
+   padding:5px;
     
 }
 input:focus{
@@ -76,12 +83,15 @@ input:focus{
 input[type=color]{
 width:50px;
 height:50px;
-border-radius: 50%;
-outline:none;
-border:none;
-fill:none;
-margin:5px 20px 0px 0px;
+margin:10px;
+margin-bottom:20px;
+padding:0;
+border-radius:50%;
+background-color: none;
+stroke-width:2px solid blue;
+
 }
+
 .partOne,.partTwo,.partThree,.partFour,.partFive{
     animation:  come 1s linear 1;
     animation-delay: 0s;
@@ -240,7 +250,7 @@ textarea{
     height:150px;
     border-top-left-radius: 50%;
     border-bottom-right-radius: 50%;
-    border:25px solid rgb(26, 26, 58);
+   
     stroke-width: 30px;
 }
 .prof4{

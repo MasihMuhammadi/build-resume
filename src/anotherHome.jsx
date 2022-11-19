@@ -24,7 +24,6 @@ const AnotherHome = () =>{
     
             <h4 className='bio1'>build Your Resume</h4>
                 
-            <img src="../PJFG.gif" id="animation"/>
             
    </div>
     

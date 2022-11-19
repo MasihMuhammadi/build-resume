@@ -13,10 +13,10 @@ const Template3 = () =>{
   let numbers = /^[0-9]+$/;
     
   let schema = yup.object( {
+
     name:yup.string().required('name is required field *').matches(alphabet,'enter a valid name').min(3).max(14),
-    lastName:yup.string().required('name is required field *').matches(alphabet,'enter a valid Last name').min(4).max(10),
+    lastName:yup.string().required('Last Name is required field *').matches(alphabet,'enter a valid Last name').min(4).max(10),
     address:yup.string().required('address is required field *'),
-    
     email:yup.string().email('please enter a valid email').required('email is required field *'),
     jobTitle:yup.string().required('job title is required field *').matches(alphabet,'enter a valid job Title').min(3),
     phone:yup.string().matches(numbers,'please enter a valid number').required('phone is a required field'),
@@ -137,7 +137,7 @@ const Template3 = () =>{
   
 
     setShowLive('d-block ');
-    setShowColores('d-block')
+    setShowColores('colores')
     setShowCenter('showLive');
   }
 
@@ -214,7 +214,7 @@ validationSchema:schema,
             if(errors.skills == null && errors.language == null ){
               isValid_4 = true;  
 
-              if(errors.phone == null && errors.linkedin == null && errors.email == null){
+              if(errors.phone == null && errors.linkedin == null && errors.email == null && errors.address == null){
                      isValid_5 = true;  
                 }
                 else{
@@ -344,7 +344,7 @@ validationSchema:schema,
 
      <label htmlFor="skills" >Skills</label>  <br />
         <input type="text"  id="skills" value={values.skills} onChange={handleChange} />  <br />
-         {errors.skills && <small className=" ">{errors.skills}<br /></small>}
+         {errors.skills && <small className=" ">{errors.skills}<br /></small>}<br />
 
         <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showPartFive}  className={`btn btn-sm btn-outline-light ${isValid_4 == false ? 'disabled'  : ''}`}>save and Continue </div>
@@ -357,8 +357,8 @@ validationSchema:schema,
     <div className={`mx-2 ${partFive}`}>
       <form action="">
       
-     <label htmlFor="Address">Adress </label> <br />
-     <input type="text"   id="Adress"  value={values.address} onChange={handleChange}  placeholder="your Adress" /> <br />
+     <label htmlFor="address">Adress </label> <br />
+     <input type="text"   id="address"  value={values.address} onChange={handleChange}  placeholder="your Adress" /> <br />
      { <small className=" ">{errors.address}<br /></small>}
     
 
@@ -389,11 +389,11 @@ validationSchema:schema,
   <div className={`${showLive}`}>
     <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
 
-      <div className="row  ">
+      <div className="row  pure-cv">
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
-            <img src="../prof.JPG" className="prof3" width="150" height="200"  /></div>
+            <img src="../prof.JPG" className="prof3" style={{ border:`solid 25px ${values.titleFontColor}`}} width="150" height="200"  /></div>
           <div className="mt-3  ps-2"> 
 
           
@@ -426,7 +426,7 @@ validationSchema:schema,
         <div className="col-6 mt-2 two px-3">
           
         <h2 className="text-uppercase" style={{color:`${values.titleFontColor}`}}>{values.name}</h2>
-          <h4 className="mt-1 pb-3  text-uppercase border-bottom border-primary">{values.lastName}</h4>
+          <h4 className="mt-1 pb-3  text-uppercase border-bottom border-primary" style={{color:`${values.titleFontColor}`}}>{values.lastName}</h4>
         
          
 
@@ -455,10 +455,10 @@ validationSchema:schema,
 
 
     </div>
-          <div className={showColores}>
-            <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
-            <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
-            <input className="color" id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
+          <div className={`${showColores} colores`}>
+            <input  className="color " id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
+            <input  className="color " id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
+            <input  className="color " id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
 
           </div>
   </div>

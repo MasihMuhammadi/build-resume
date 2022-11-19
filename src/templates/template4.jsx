@@ -296,11 +296,11 @@ validationSchema:schema,
           
 
          <label htmlFor="startDate">Start Date:</label><br />
-         <input type="date" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
+         <input type="month" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
          { <small className=" ">{errors.startDate}<br /></small>}
 
          <label htmlFor="endDate">End Date:</label> <br />
-         <input className='' id="endDate"  type="date"  value={values.endDate} onChange={handleChange}  placeholder="end Date"/> <br /><br />
+         <input className='' id="endDate"  type="month"  value={values.endDate} onChange={handleChange}  placeholder="end Date"/> <br /><br />
          { <small className=" ">{errors.endDate}<br /></small>}
         
          <div className="btn btn-sm btn-outline-light me-4" onClick={showPartOne} >Go To Back</div> 
@@ -328,8 +328,8 @@ validationSchema:schema,
 
          <label htmlFor="startUni">Start Date</label> <br />
          <input type="number" className="" id="startUni"  value={values.startUni}  onChange={handleChange} placeholder="start Date"/> <br />
-         <label htmlFor="endUni" >End Date</label> <br />
-         <input className='' id="endUni"  type="number" value={values.endUni} onChange={handleChange} placeholder="end Date"/> <br /><br />
+         <label htmlFor="month" >End Date</label> <br />
+         <input className='' id="month"  type="number" value={values.endUni} onChange={handleChange} placeholder="end Date"/> <br /><br />
         
     
         <div onClick={showPartTwo} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
@@ -351,7 +351,7 @@ validationSchema:schema,
 {/* 
      <label htmlFor="skills" >Skills</label>  <br />
         <input type="text"  id="skills" value={values.skills} onChange={handleChange} />  <br />
-         {errors.skills && <small className=" ">{errors.skills}<br /></small>} */}
+         {errors.skills && <small className=" ">{errors.skills}<br /></small>} */} <br />
 
         <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showResult}  className={`btn btn-sm btn-outline-light ${isValid_4 == false ? 'disabled'  : ''}`}>save and Show </div>
@@ -370,7 +370,7 @@ validationSchema:schema,
   <div className={`${showLive}`}>
     <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
 
-      <div className="row  ">
+      <div className="row  pure-cv">
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
@@ -385,10 +385,10 @@ validationSchema:schema,
           <p className="text-end me-5" style={{color:`${values.titleFontColor}`}}>Protfolio</p>
 
           <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-          <p className="mt-3 text-center me-3" style={{color:`${values.titleFontColor}`}}>{values.startDate} - {values.endDate}</p>
+          <p className="mt-3 text-end me-1" style={{color:`${values.titleFontColor}`}}>{values.startDate} - {values.endDate}</p>
 
           <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-          <p className="mt-3 text-end me-5" style={{color:`${values.titleFontColor}`}}>{values.startUni} - {values.endUni}</p>
+          <p className="mt-3 text-end me-1" style={{color:`${values.titleFontColor}`}}>{values.startUni} - {values.endUni}</p>
 
 
           <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
@@ -418,11 +418,11 @@ validationSchema:schema,
           <h4 className="mt-4 " style={{color: values.titleFontColor}}>Experience</h4>
           {values.experince} Componey in {values.post} Position
           
-          <h4 className="mt-4 " style={{color:`${values.titleFontColor}`}}>Education</h4>
+          <h4 className="mt-2 " style={{color:`${values.titleFontColor}`}}>Education</h4>
                {values.university} at {values.faculty} in {values.degree} 
 
          
-          <h4 className="mt-4" style={{color:`${values.titleFontColor}`}}>Language</h4>
+          <h4 className="mt-3" style={{color:`${values.titleFontColor}`}}>Language</h4>
           {[values.language.split(',').map((lang,index) => <li key={index}>{lang}</li>)]}
           
           
@@ -450,4 +450,4 @@ validationSchema:schema,
   </>)
 }
 
-export default Template4
+export default Template4;

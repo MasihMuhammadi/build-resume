@@ -10,13 +10,14 @@ const Template1 = () =>{
 
 
   let alphabet = /^[A-za-z]+$/;
+  
   let numbers = /^[0-9]+$/;
     
   let schema = yup.object( {
     name:yup.string().required('name is required field *').matches(alphabet,'enter a valid name').min(3).max(14),
     lastName:yup.string().required('name is required field *').matches(alphabet,'enter a valid Last name').min(4).max('9'),
     email:yup.string().email('please enter a valid email').required('email is required field *'),
-    jobTitle:yup.string().required('job title is required field *').matches(alphabet,'enter a valid job Title').min(3).max(9),
+    jobTitle:yup.string().required('job title is required field *').matches(alphabet,'enter a valid job Title').min(3),
     phone:yup.string().matches(numbers,'please enter a valid number').required('phone is a required field'),
     summery:yup.string().required('summery is required field *'),
     experince:yup.string().required('experince is required field *').matches(alphabet,'enter a valid experince').min(3).max(9),
@@ -371,17 +372,10 @@ validationSchema:schema,
 
      <label htmlFor="skills" >Skills</label>  <br />
         <input type="text"  id="skills" value={values.skills} onChange={handleChange} />  <br />
-         {errors.skills && <small className=" ">{errors.skills}<br /></small>}
+         {errors.skills && <small className=" ">{errors.skills}<br /></small>}<br />
 
      
-         
-          {/* <label>Level</label><br />
-         
-            <input type="text" value="25%"  readonley className=" skill-level" onClick={getLevel} />
-            <input type="text" value="50%"  readonley className=" skill-level" onClick={getLevel} />     
-            <input type="text" value="75%"  readonley className=" skill-level" onClick={getLevel} />    
-            <input type="text" value="100%" readonley className=" skill-level" onClick={getLevel} /><br /> 
-         */}
+   
         <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showPartFive}  className={`btn btn-sm btn-outline-light ${isValid_4 == false ? 'disabled'  : ''}`}>save and Continue </div>
         

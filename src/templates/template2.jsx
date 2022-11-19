@@ -224,7 +224,7 @@ else{
     
     <input type="file" multiple={false}  /> <br />
 
-    <div onClick={showPartTwo}  className={`btn btn-primary   ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
+    <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light   ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
      
    
@@ -258,7 +258,7 @@ else{
          <input className='' id="endDate"  type="date"  value={values.end} onChange={handleChange}  placeholder="end Date"/> <br /><br />
          { <small className=" ">{errors.email}<br /></small>}
          <div className="btn btn-sm btn-outline-light me-4" onClick={showPartOne} >Go To Back</div> 
-         <div onClick={showPartThree}  className={`btn btn-primary   ${isValid_2 == false ? 'disabled'  : ''}`}>save and continue </div>
+         <div onClick={showPartThree}  className={`btn btn-sm btn-outline-light   ${isValid_2 == false ? 'disabled'  : ''}`}>save and continue </div>
 
  
       </div>
@@ -284,8 +284,8 @@ else{
          <label htforom="endUni" >End Date:</label> <br />
          <input className='' id="endUni"  type="number" value={values.endUni} onChange={handleChange} placeholder="end Date"/> <br /><br />
         
-        <div className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
-    <div onClick={showResult}  className={`btn btn-primary   ${isValid_3 == false ? 'disabled'  : ''}`}>save and show </div>
+        <div className="btn btn-sm btn-outline-light me-5" onClick={showPartTwo}>Go To Back</div>  
+    <div onClick={showResult}  className={`btn btn-sm btn-outline-light   ${isValid_3 == false ? 'disabled'  : ''}`}>save and show </div>
         
 
          
@@ -299,7 +299,7 @@ else{
   <div className={`${showLive}`}>
     <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
 
-      <div className="row  ">
+      <div className="row pure-cv">
         <div className="col-6 one" >
           <div className="shadow" style={{backgroundColor:`${values.headerColor}`}}>
           <div className="  ps-2  pt-4"><img src="../prof.JPG" className="prof2" width="150" height="200"  /></div>
