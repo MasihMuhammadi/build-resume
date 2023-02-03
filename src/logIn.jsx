@@ -1,5 +1,4 @@
 import { useFormik } from 'formik'
-import { ref } from 'joi'
 import React, { useState } from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import * as yup from 'yup'
@@ -7,8 +6,6 @@ import { val_email, val_password } from './signUp'
 
 const LogIn = (props) =>{
   
-
-
 let value = val_email;
 var message = 'incorrect'
 
@@ -23,7 +20,7 @@ const onSubmit = () =>{
 
     console.log('submitted');
     console.log(values.email,":",values.password)
-  console.log(val_email,":", val_password)
+    console.log(val_email,":", val_password)
    
   }
   

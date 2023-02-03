@@ -16,7 +16,7 @@ const AnotherHome = () =>{
  
     
     return(<>
-<div className='home bg-dark mb-4'>
+<div className='home bg-dark mb-0'>
 
     <div className='wallpaper'>
         <Link to="/creatResume" className="getStarted float-sm-end">Get Started</Link>
@@ -28,11 +28,9 @@ const AnotherHome = () =>{
    </div>
     
 </div>
+
     </>
     )
-    
-
-    
 }
 
 export default AnotherHome;

@@ -24,10 +24,13 @@ const Template3 = () =>{
     experince:yup.string().required('experince is required field *').matches(alphabet,'enter a valid experince').min(3).max(9),
     post:yup.string(),
     university:yup.string().required('name is required university *').matches(alphabet,'enter a valid university').min(3).max(9),
-    faculty:yup.string().required('faculty is required field *').min(3).max(15),
+    faculty:yup.string().required('faculty is required field *').min(3).max(20),
     degree:yup.string().required('degree is required field *').matches(alphabet,'enter a valid faculty').min(3).max(9),
-    language:yup.string().required('language is required field *'),
+    language:yup.string().required('language is required field *').matches(alphabet,'please enter a valid language'),
+
     skills:yup.string().required('skill is required field *'),
+    website:yup.string().url()
+
 
 
     
@@ -56,12 +59,9 @@ const Template3 = () =>{
   const [endDate,setEndDate] = useState('');
   const [skills,setSkills] = useState('');
   const [skillsLevel,setSkillsLevel] = useState('');
-  const [language,setLanguage] = useState('');
-
-
   const [addLanguage,setAddLanguage] = useState();
   const [summery,setSummery] = useState('');  
-
+  
   const [partOne,setPartOne] = useState('partOne');
   const [partTwo,setPartTwo] = useState('d-none');
   const [partThree,setPartThree] = useState('d-none');
@@ -70,8 +70,11 @@ const Template3 = () =>{
 
   const [showLive,setShowLive] = useState('d-none d-lg-block');
   const [showCenter,setShowCenter] = useState('');
+  const [NewLanguage,setNewLanguage] = useState([]);
+  const [language,setLanguage] = useState('');
+  const [language_level,setLanguage_level] = useState('');
 
-
+  const [NewLanguage_level,setNewLanguage_level] = useState([]);
   const [showColores,setShowColores] = useState('d-none')
   const [headerColor,setHeaderColor] = useState('');
   const [headerFontColor,setHeaderFontColor] = useState('');
@@ -141,7 +144,26 @@ const Template3 = () =>{
     setShowCenter('showLive');
   }
 
- 
+  const handleNew = () => {
+    let newInput = [...NewLanguage,[]];
+    let newLevel = [...NewLanguage_level,[]];
+    setNewLanguage_level(newLevel)
+    setNewLanguage(newInput);
+  
+  }
+  
+  const handleAdd = (event,index) =>{
+    let inputData = [...NewLanguage]; 
+     inputData[index] = event.target.value; 
+     setNewLanguage(inputData);
+
+  }
+
+  const handleAddLevel = (event,index) =>{
+    let levelData = [...NewLanguage_level];
+    levelData[index] = event.target.value;
+    setNewLanguage_level(levelData);
+  }
   
   
   
@@ -175,6 +197,7 @@ initialValues:{
  // partFour
  skills:'',
  language:'',
+ language_level:'',
  
  // partFive
  email:'',
@@ -286,11 +309,11 @@ validationSchema:schema,
           
 
          <label htmlFor="startDate">Start Date:</label><br />
-         <input type="date" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
+         <input type="month" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
          { <small className=" ">{errors.startDate}<br /></small>}
 
          <label htmlFor="endDate">End Date:</label> <br />
-         <input className='' id="endDate"  type="date"  value={values.endDate} onChange={handleChange}  placeholder="end Date"/> <br /><br />
+         <input className='' id="endDate"  type="month"  value={values.endDate} onChange={handleChange}  placeholder="end Date"/> <br /><br />
          { <small className=" ">{errors.endDate}<br /></small>}
         
          <div className="btn btn-sm btn-outline-light me-4" onClick={showPartOne} >Go To Back</div> 
@@ -337,14 +360,33 @@ validationSchema:schema,
     <div className={`mx-2 ${partFour}`}>
       <form action="">
       
-      <label htmlFor="language" >Language</label>  <br />
-        <input type="text"  id="language" value={values.language} placeholder="e.g English / Fluent" onChange={handleChange} /> <br />
-          
-         {errors.language &&  <small className=" ">{errors.language}<br /></small>}
 
      <label htmlFor="skills" >Skills</label>  <br />
         <input type="text"  id="skills" value={values.skills} onChange={handleChange} />  <br />
          {errors.skills && <small className=" ">{errors.skills}<br /></small>}<br />
+     
+      <label htmlFor="language" >Language</label>  <br />
+        <input type="text"  id="language" value={values.language} placeholder="e.g English / Fluent" onChange={handleChange} /> <br />
+         {errors.language &&  <small className=" ">{errors.language}<br /></small>}
+         <select id="language_level" name="language_level" value={values.language_level}  onChange={handleChange}className="mt-2 border rounded">
+          <option>Fluent</option>
+          <option>Native</option>
+          <option>Good</option>
+          <option>Not bad</option>
+          </select> <br />
+        
+         {NewLanguage.map((value,index) => {
+        return <div key={index} ><label>language</label><input type="text" onChange={e => handleAddLevel(e,index) }/>
+         <select id="language_level" name="language_level"  onChange={e =>handleAddLevel(e,index)} className="mt-2 border rounded">
+          <option>Fluent</option>
+          <option>Native</option>
+          <option>Good</option>
+          <option>Not bad</option>
+          </select> <br /></div>
+      })}
+
+      <div className="btn btn-success my-1" onClick={handleNew}>Add</div> <br />
+
 
         <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showPartFive}  className={`btn btn-sm btn-outline-light ${isValid_4 == false ? 'disabled'  : ''}`}>save and Continue </div>
@@ -389,7 +431,7 @@ validationSchema:schema,
   <div className={`${showLive}`}>
     <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
 
-      <div className="row  pure-cv">
+      <div className="row pure-cv">
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
@@ -404,9 +446,9 @@ validationSchema:schema,
               <h4 className=" border-bottom border-primary" style={{color:`${values.titleFontColor}`}}>Contact</h4>
               <div className="">
               <h6>Phone</h6>
+              <p className="px-1">{values.phone}</p>
               <h6 className="px-1">Address:</h6>
               <p className="px-1">{values.address}</p>
-              <p className="px-1">{values.phone}</p>
               <h6 className="px-1">Social media:</h6>
               <p className="px-1">{values.linkedin}</p>
               <h6 className="px-1"> E-mail:</h6>
@@ -434,7 +476,7 @@ validationSchema:schema,
             <p> work in <b>{values.experince}</b>: <br /> <b>{values.post}</b> position Start <br /> {`${values.startDate} to ${values.endDate}`} </p>
           
           <h4 className="mt-4 t" style={{color:`${values.titleFontColor}`}}>Education</h4>
-               {values.university} at {values.faculty} in {values.degree} {`${values.startUni} - ${values.endUni}`}
+              {values.university} at {values.faculty} in {values.degree} {`${values.startUni} - ${values.endUni}`}
          
           
           <h5 className="px-1">{values.jobTitle}</h5>
@@ -444,7 +486,9 @@ validationSchema:schema,
             {[values.skills.split(',').map((skill,ind) =><span className="mx-1 badge bg-primary" key={ind}>{skill}</span>)]}
 
           <h4 className="" style={{color:`${values.titleFontColor}`}}>Language</h4>
-          {[values.language.split(',').map((lang,index) => <li key={index}>{lang}</li>)]}
+          {[values.language.split(',').map((lang,index) => <li key={index}>{lang} / {values.language_level}</li>)]}
+          {[NewLanguage.map((lang,index) => <li className="" key={index}>{lang} / {NewLanguage_level[index]}</li>)]}
+
 
 
         

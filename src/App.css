@@ -11,8 +11,9 @@
 }
 
 .inputes{
+    
     width:100%;
-    height:100vh;
+    height:100%;
     display:flex;
     align-items: center;
     justify-content: space-between;
@@ -42,32 +43,35 @@ user-select: none;
     cursor:pointer;
 }
 .template2{
-    
+    margin-top:50px;
     font-size:14px;
+    margin-bottom:10px;
 }
 
  
 .showLive{
-    padding:0px 15px 0px 15px;
-    margin-top:10px;
     display:flex;
     align-items:center;
     justify-content:center;
-
     box-sizing:border-box;
-   
+    padding:0px 15px 0px 15px;
+
+}
+.header-6{
+    width:85vh;
+    height:25%;
+    word-wrap: break-word;
+}
+.name-6{
+    border-left:10px solid black;
+    padding-left:10px;
 }
 .pure-cv{
-    width:100%;
+    width:75vh;
     height:100%;
-    overflow: scroll;
+    word-wrap: break-word;
 }
 
-
-.one,.two{
-    word-wrap: wrap;
-    line-break:auto;
-}
 input,textarea{
    width:100%;
    height:45px;
@@ -92,7 +96,7 @@ stroke-width:2px solid blue;
 
 }
 
-.partOne,.partTwo,.partThree,.partFour,.partFive{
+.partOne,.partTwo,.partThree,.partFour,.partFive,.partSex{
     animation:  come 1s linear 1;
     animation-delay: 0s;
 }
@@ -121,6 +125,10 @@ color:rgb(221, 221, 221);
     color:whitesmoke;
 }
 .partFive>form>label{
+    margin-top:10px;
+    color:whitesmoke;
+}
+.partSex>form>label{
     margin-top:10px;
     color:whitesmoke;
 }
@@ -218,6 +226,7 @@ b{
 .body{
     width:100%;
 }
+
 .title{
    text-decoration: underline;
    padding:20px;
@@ -250,14 +259,17 @@ textarea{
     height:150px;
     border-top-left-radius: 50%;
     border-bottom-right-radius: 50%;
-   
     stroke-width: 30px;
 }
 .prof4{
     display:inline-block;
     width:80px;
     height:80px;
-
+}
+.prof6{
+    width:100px;
+    height:100px;
+    border-radius:50px;
 }
 .languages{
     font-size:14px;
@@ -281,6 +293,9 @@ textarea{
 }
 li{
     list-style-type: disc;
+}
+li.rome{
+    list-style-type:upper-roman
 }
 ul li a{
     text-decoration: none;
@@ -358,14 +373,21 @@ ul li a:hover{
     .bio1{
         font-size:40px;
     }
+    .inputes{
+       width:100%;
+       height:110vh;
+    }
+    
      
 }
 
 @media(max-width:768px){
     .inputes{
-        display:block;
+        display:flex;
         justify-content: center;
         align-items: center;
+        width:100%;
+        height:100vh;
     }
     
     #animation{
@@ -411,22 +433,6 @@ ul li a:hover{
 .getStarted:active{
     color:black;
     transform:scale(1.08);
-}
-.burger div{
-    width:23px;
-    height:4px; 
-   background-color: white;
-    margin:3px;
-    
-    
-}
-.burger{
-    cursor:pointer;
-   position:absolute;
-   right:20px;
-   top:10px;
-   z-index:100000000000;
-   
 }
 
 
@@ -585,13 +591,36 @@ ul li a:hover{
     animation-iteration-count: 1;
     transform:translateY(-680px);
 }
-.line1-show{
-    transform:rotate(20deg);
+.burger div{
+ 
+    background-color: white;
+   margin-top:3px;
+    
 }
-.lin2-hide{
-    display:none;
+.burger{
+    cursor:pointer;
+    margin-top:14px;
+   position:absolute;
+   right:20px;
+   top:10px;
+   z-index:100000000000;
+   
+}
+
+.line1,.line2,.line3{
+    margin-top:2px;
+    height:3px; 
+    width:20px;
+    background:white;
+}
+.line1_hide{
+   transform: rotate(-25deg);
+   margin-left:-10px;
+   width:30px;
 
 }
+
+
 
 @keyframes hideNavbar {
 
@@ -600,9 +629,6 @@ ul li a:hover{
 
 }
 
-.line1-hide{
-    transform:rotate(0deg)
-} 
 .contact-page{
     display:flex;
     width:100%;
@@ -621,8 +647,14 @@ ul li a:hover{
 
 
 .icons>a>img{
-    width:40px;
-    height:40px;
+    width:50px;
+    height:50px;
+    position:relative;
+    display:block;
+    margin:25px 10px 25px 10px;
+    float:inline-start
+    
+    
 }
 .icons>a>img:hover{
     transition: 0.3s 0.1s;

@@ -1,4 +1,4 @@
-import { link, linkedinIn } from 'fontawesome'
+
 import React,{useState} from 'react'
 import {Link,Outlet} from 'react-router-dom'
 import Header from './header'

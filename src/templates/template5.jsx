@@ -6,7 +6,7 @@
 
 
 
-const Template4 = () =>{
+const Template5 = () =>{
 
 
   let alphabet = /^[A-za-z]+$/;
@@ -28,9 +28,8 @@ const Template4 = () =>{
     degree:yup.string().required('degree is required field *').matches(alphabet,'enter a valid faculty').min(3).max(9),
     language:yup.string().required('language is required field *').matches(alphabet,'please enter a valid Language'),
     skills:yup.string().required('skill is required field *'),
-    DoB:yup.date('please enter a valid date').required('Date of Birth is required *'),
-    linkedin:yup.string().url(),
-    post:yup.string().matches(alphabet ,'please enter a valid position'),
+    DoB:yup.string().required('Date of Birth is required *'),
+    website:yup.string().url()
 
 
 
@@ -45,6 +44,7 @@ const Template4 = () =>{
   const [email,setEmail] = useState('');
   const [address,setAdress] = useState('');
   const [DoB,setDoB] = useState('');
+  const [NewLanguage,setNewLanguage]  = useState([]);
 
 
   const [education,setEducation] = useState('')
@@ -55,8 +55,6 @@ const Template4 = () =>{
   const [endUni,setEndUni] = useState('');
   const [experince,setExperience] = useState();
   const [NewExperince,setNewExperience] = useState([]);
-  const [NewLanguage,setNewLanguage]  = useState([]);
-
 
   const [post,setPost] = useState('');
   const [startDate,setStartDate] = useState('');
@@ -66,7 +64,6 @@ const Template4 = () =>{
   const [language,setLanguage] = useState('');
   const [language_level,setLanguage_level] = useState('');
   const [NewLanguage_level,setNewLanguage_level] = useState([]);
-
 
   const [addLanguage,setAddLanguage] = useState();
   const [summery,setSummery] = useState('');  
@@ -137,6 +134,7 @@ const Template4 = () =>{
   const getLevel = (event) =>{
     setSkillsLevel(event.target.value);
   }
+
   const showResult  = () =>{
     setPartOne('d-none');
     setPartTwo('d-none');
@@ -150,30 +148,28 @@ const Template4 = () =>{
     setShowCenter('showLive');
   }
 
-
+ 
   const handleNew = () => {
-
     let newInput = [...NewLanguage,[]];
-    let newLevel = [...NewLanguage_level,[]];
-
-    setNewLanguage_level(newLevel)
+    let levelData = [...NewLanguage_level,[]];
     setNewLanguage(newInput);
+    setNewLanguage(levelData);
   
   }
+  
   const handleAdd = (event,index) =>{
     let inputData = [...NewLanguage]; 
-    inputData[index] = event.target.value; 
-    setNewLanguage(inputData);
-    
+     inputData[index] = event.target.value; 
+     setNewLanguage(inputData);
+
   }
+
   const handleAddLevel = (event,index) =>{
-  
     let levelData = [...NewLanguage_level];
     levelData[index] = event.target.value;
     setNewLanguage_level(levelData);
 
   }
- 
   
   
   
@@ -201,23 +197,20 @@ initialValues:{
  degree:'',
  startUni:'',
  endUni:'',
- 
- 
+ phone:'',
+ linkedin:'',
  
  // partFour
  skills:'',
  language:'',
  language_level: '',
- 
  // partFive
  email:'',
  address:'',
-  phone:'',
+ 
   linkedin:'',
   email:'',
   DoB:'',
-
-
  
  // color
  bodyColor:'white',
@@ -239,7 +232,7 @@ validationSchema:schema,
 
 
 
-  if(errors.name == null && errors.lastName == null && errors.email == null && errors.DoB == null ){
+  if(errors.name == null && errors.lastName == null && errors.summery == null ){
     isValid = true;
     if(errors.experince == null && errors.post == null ){
         isValid_2  = true;
@@ -272,7 +265,7 @@ validationSchema:schema,
   return(<>
       <div className=''>
   
-  <div className={`${showCenter} inputes bg-dark  pt-5` } >
+  <div className={`${showCenter} inputes bg-dark pt-5 `}>
   <div className="">
 
     <div className={`mx-2 ${partOne} text-light`}>
@@ -281,28 +274,17 @@ validationSchema:schema,
      <input  type="text"  id="name" value={values.name} onChange={handleChange} placeholder="enter your name" required />  <br />
      {<small className=" ">{errors.name}<br /></small>}
     
+    
     <label htmlFor="lastName">LastName</label>  <br />
     <input  type="text" id="lastName" value={values.lastName} onChange={handleChange} placeholder="enter your Last name" required />  <br />
     { <small className=" ">{errors.lastName}<br /></small>}
 
-    <label htmlFor="email">Email Address</label> <br ></br>
-    <input type="email"   id="email"   value={values.email} onChange={handleChange}   placeholder=" your Email" /> <br />
-    { <small className=" ">{errors.email}<br /></small>}
-
-    <label htmlFor="DoB">DOB </label> <br />
-     <input type="date"   id="DoB"  value={values.DoB} onChange={handleChange}  placeholder="your Date of" /> <br />
-     { <small className=" ">{errors.DoB}<br /></small>}
-    
-    <label htmlFor="linkedin">Website</label>  <br />
-    <input type="text" id="linkedin"  value={values.linkedin} onChange={handleChange}  placeholder=" your Protfolio Url" /> <br />
-    { <small className=" ">{errors.linkedin}<br /></small>}
-   
+ 
 
 
-{/* 
     <label htmlFor="name">Summery</label><br />
          <textarea  type="text" id="summery"  value={values.summery} onChange={handleChange}  placeholder="tell us about your self" required ></textarea> <br />
-          { <small className=" ">{errors.summery}<br /></small>} */}
+          { <small className=" ">{errors.summery}<br /></small>} 
 
 
     
@@ -329,7 +311,7 @@ validationSchema:schema,
           
 
          <label htmlFor="startDate">Start Date:</label><br />
-         <input type="month" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
+         <input type="month"  id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
          { <small className=" ">{errors.startDate}<br /></small>}
 
          <label htmlFor="endDate">End Date:</label> <br />
@@ -360,7 +342,7 @@ validationSchema:schema,
          {errors.degree && <small className=" ">{errors.degree}<br /></small>}
 
          <label htmlFor="startUni">Start Date</label> <br />
-         <input type="number" className="" id="startUni"  value={values.startUni}  onChange={handleChange} placeholder="start Date"/> <br />
+         <input type="number" id="startUni"  value={values.startUni}  onChange={handleChange} placeholder="start Date"/> <br />
          <label htmlFor="endUni" >End Date</label> <br />
          <input className='' id="endUni"  type="number" value={values.endUni} onChange={handleChange} placeholder="end Date"/> <br /><br />
         
@@ -378,20 +360,25 @@ validationSchema:schema,
     <div className={`mx-2 ${partFour}`}>
       <form action="">
       
-      <label htmlFor="language" >Language</label>  <br />
-        <input type="text" className=""  id="language" value={values.language} placeholder="e.g English" onChange={handleChange} />
 
+         <label htmlFor="skills" >Skills</label>  <br />
+        <input type="text"  id="skills" value={values.skills} placeholder="e.g web development" onChange={handleChange} /> <br />
+         {errors.skills &&  <small className=" ">{errors.languaskills}<br /></small>}
+   
+
+      <label htmlFor="language" >Language</label>  <br />
+        <div className=""><input type="text" className="d-inline"  id="language" value={values.language} placeholder="e.g English / Fluent" onChange={handleChange} /></div>
          {errors.language &&  <small className=" ">{errors.language}<br /></small>}
-        <select id="language_level" name="language_level" value={values.language_level}  onChange={handleChange}className="mt-2 border rounded">
+         <select id="language_level" name="language_level" value={values.language_level}  onChange={handleChange}className="mt-2 border rounded">
           <option>Fluent</option>
           <option>Native</option>
           <option>Good</option>
           <option>Not bad</option>
           </select> <br />
-      
-         {NewLanguage.map((value,index) => {
+
+      {NewLanguage.map((value,index) => {
         return <div key={index} ><label>language</label><input type="text" onChange={e => handleAdd(e,index) }/>
-        <select id="language_level" name="language_level"  onChange={e =>handleAddLevel(e,index)} className="mt-2 border rounded">
+          <select id="language_level" name="language_level"  onChange={e =>handleAddLevel(e,index)} className="mt-2 border rounded">
           <option>Fluent</option>
           <option>Native</option>
           <option>Good</option>
@@ -399,12 +386,8 @@ validationSchema:schema,
           </select> <br />
         </div>
       })}
-      <div className="btn btn-success my-1" onClick={handleNew}>Add</div> <br />
 
-{/* 
-     <label htmlFor="skills" >Skills</label>  <br />
-        <input type="text"  id="skills" value={values.skills} onChange={handleChange} />  <br />
-         {errors.skills && <small className=" ">{errors.skills}<br /></small>} */} <br />
+      <div className="btn btn-success my-1" onClick={handleNew}>Add</div> <br />
 
         <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showResult}  className={`btn btn-sm btn-outline-light ${isValid_4 == false ? 'disabled'  : ''}`}>save and Show </div>
@@ -414,80 +397,71 @@ validationSchema:schema,
       </form>
     
     </div>
-   
+
+
+    <div className={`mx-2 ${partFive}`}>
+      <form action="">
+      
+      
+
+    <label htmlFor="email">Email Address</label> <br ></br>
+    <input type="email"   id="email"   value={values.email} onChange={handleChange}   placeholder=" your Email" /> <br />
+    { <small className=" ">{errors.email}<br /></small>}
+    
+    <label htmlFor="linkedin">Website</label>  <br />
+    <input type="text" id="linkedin"  value={values.linkedin} onChange={handleChange}  placeholder=" your Protfolio Url" /> <br />
+    { <small className=" ">{errors.linkedin}<br /></small>}
 
     
+
+         
+      </form>
+    
+    </div>
+   
   </div> 
  
 
   <div className={`${showLive}`}>
-    <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+    <div className="template2 p-3  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
 
       <div className="row  pure-cv">
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
-            <h5 className="text-uppercase ms-3" style={{color:`${values.titleFontColor}`}}>{values.name}</h5>
-            <h3 className="mt-1 pb-3 ms-3  text-uppercase"  style={{color:`${values.titleFontColor}`}}>{values.lastName}</h3>
+        <img src="../prof.JPG" className="prof4 mt-3 ms-2" width="150" height="200"  />
+            
           </div>
             
-          <div className="title-line mt-4" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-          <p className="text-end me-5 mt-3" style={{color:`${values.titleFontColor}`}}>Name</p>
-          <p className="text-end d-block me-5" style={{color:`${values.titleFontColor}`}}>Email</p>
-          <p className="text-end me-5" style={{color:`${values.titleFontColor}`}}>DOB</p>
-          <p className="text-end me-5" style={{color:`${values.titleFontColor}`}}>Protfolio</p>
+          <h4 className="mt-4 mx-2" style={{color: values.titleFontColor}}>summery</h4>
+          <p className="mx-2">{values.summery }</p> 
 
-          <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-          <p className="mt-3 text-center ms-3" style={{color:`${values.titleFontColor}`}}>{values.startDate} - {values.endDate}</p>
+            <h4 className="mt-4 mx-2" style={{color:`${values.titleFontColor}`}}>Skills</h4>
+            {[values.skills.split(',').map((skill,ind) =><span className="mx-1 badge  bg-primary" key={ind}>{skill}</span>)]} 
 
-          <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-          <p className="mt-3 text-center ms-5" style={{color:`${values.titleFontColor}`}}>{values.startUni} - {values.endUni}</p>
-
-
-          <div className="title-line mt-5" style={{backgroundColor:`${values.titleFontColor}`}}></div>
-
-          <div className="title-line mt-5"></div>
-
-
-
-
+           
+            <h4 className="mt-4 mx-2" style={{color:`${values.titleFontColor}`}}>Language</h4>
+             {[values.language].map((lang,index) => <li className="mx-2" key={index}>{lang} / {values.language_level}</li>)}
+             {[NewLanguage.map((lang,index) => <li className="" key={index}>{lang} / {NewLanguage_level[index]}</li>)]}
+            
 
           </div>
+
         <div className="col-6 mt-2 two px-3">
-        <img src="../prof.JPG" className="prof4 mt-3 ms-5" width="150" height="200"  />
-        <button>select</button>
 
-
-        <h4 className="mt-4" style={{color:`${values.titleFontColor}`}}>Personal </h4>
-        <div className="">
-            
-              <p className="px-1">{values.name}</p>
-              <p className="px-1 "> {values.email}</p>
-              <p className="px-1"> {values.DoB}</p>
-              <p className="px-1 ">{values.linkedin}</p>
-
-            </div>
+          <h2 className="mt-4 text-capitalize " style={{color: values.titleFontColor}}>{values.name}</h2>
+          <h2 className="mt-4 text-capitalize d-inline mx-1" style={{color: values.titleFontColor}}>{values.lastName}</h2>
         
-    
+          <h4 className="mt-5 " style={{color:`${values.titleFontColor}`}}>Education</h4>
+            {values.university} at {values.faculty} in {values.degree} <br />
+            <p>{`${values.startUni} - ${values.endUni}`}</p>
+
+
+
           <h4 className="mt-4 " style={{color: values.titleFontColor}}>Experience</h4>
-          {values.experince} Componey in {values.post} Position
-          
-          <h4 className="mt-2 " style={{color:`${values.titleFontColor}`}}>Education</h4>
-               {values.university} at {values.faculty} in {values.degree} 
-
-         
-          <h4 className="mt-3" style={{color:`${values.titleFontColor}`}}>Language</h4>
-            <ol>{values.language} / {values.language_level}</ol> 
-
-          {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
-
-
-          
-          
-          
-          {/* <h4 className="" style={{color:`${values.titleFontColor}`}}>Skills</h4>
-            {[values.skills.split(',').map((skill,ind) =><span className="mx-1 badge bg-primary" key={ind}>{skill}</span>)]} */}
-
+            <p>{values.experince}</p>
+            <p>{values.post}</p>
+            <p>{values.startDate} - {values.endDate}</p>
 
         </div>
 
@@ -495,7 +469,7 @@ validationSchema:schema,
 
 
     </div>
-          <div className={showColores}>
+          <div className={`${showColores} colores`}>
             <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input className="color" id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
@@ -509,4 +483,4 @@ validationSchema:schema,
   </>)
 }
 
-export default Template4;
+export default Template5;

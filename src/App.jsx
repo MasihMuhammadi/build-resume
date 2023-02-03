@@ -5,14 +5,16 @@ import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import CustomResume from './customResume';
 import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.css'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import { fontAwesome } from 'fontawesome';
+
 import Home from './home'
 function App () {
   
  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(<Home />)
+  root.render(<div>
+    <Home />
+    
+    </div>
+     )
 }
 
 export default App;

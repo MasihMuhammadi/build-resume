@@ -14,6 +14,10 @@ import Template1 from '../src/templates/template1'
 import Template2 from '../src/templates/template2';
 import Template3 from '../src/templates/template3';
 import Template4 from '../src/templates/template4';
+import Template5 from '../src/templates/template5';
+import Template6 from '../src/templates/template6';
+
+
 
 
 
@@ -30,7 +34,7 @@ const Home = () =>{
             setToggle(!toggle);
             setNavbar('d-none');
             setNavbar(' sm-navbar-hide d-sm-none')
-            setBurgerClick('line1-hide');
+           
         }
     
       const handleToggle = () =>{ 
@@ -38,13 +42,14 @@ const Home = () =>{
        
         if(toggle == false){
             setNavbar(`d-block d-sm-none`);
-            setBurgerClick('line1-show');
-            
+            setBurgerClick('line1_hide')
+         
         }
         else{
             
             setNavbar('sm-navbar-hide d-sm-none')
-            setBurgerClick('line1-hide');
+            setBurgerClick('')
+           
         }
 }
 return<>
@@ -53,7 +58,7 @@ return<>
     <BrowserRouter>
     <div className="burger d-block d-sm-none" onClick={handleToggle}>
             <div className={`line1 ${burgerClick}`}></div>
-            <div className='line2'></div>
+            <div className='line2 '></div>
             <div className="line3"></div>
         </div>
 
@@ -81,6 +86,10 @@ return<>
             <Route path="/templates/template2" element={<Template2 />} />
             <Route path="/templates/template3" element={<Template3 />} />
             <Route path="/templates/template4" element={<Template4 />} />
+            <Route path="/templates/template5" element={<Template5 />} />
+            <Route path="/templates/template6" element={<Template6 />} />
+
+
 
 
 

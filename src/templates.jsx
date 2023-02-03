@@ -18,6 +18,13 @@ const Templates = (props) =>{
     <Link to="template4" className="">
          <img src="template4.png" className="templates" />
     </Link> 
+    <Link to="template5" className="">
+         <img src="template5.png" className="templates" />
+    </Link> 
+
+    <Link to="template6" className="">
+         <img src="template5.png" className="templates" />
+    </Link> 
     </div>
 </div>
 

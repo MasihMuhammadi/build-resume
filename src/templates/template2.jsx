@@ -23,9 +23,10 @@ const Template2 = () =>{
     experince:yup.string().required('experince is required field *').matches(alphabet,'enter a valid experince').min(3).max(9),
     post:yup.string(),
     university:yup.string().required('name is required university *').matches(alphabet,'enter a valid university').min(3).max(9),
-    faculty:yup.string().required('faculty is required field *').min(3).max(15),
+    faculty:yup.string().required('faculty is required field *').min(3).max(20),
+    
     degree:yup.string().required('degree is required field *').matches(alphabet,'enter a valid faculty').min(3).max(9),
-
+    website:yup.string().url()
     
   })
 
@@ -62,6 +63,12 @@ const Template2 = () =>{
   const [experince,setExperience] = useState();
   const [post,setPost] = useState('');
   const [summery,setSummery] = useState('');
+  const [skills,setSkills] = useState('');
+  const [skillsLevel,setSkillsLevel] = useState();
+  const [newSkill,setNewSkill] = useState([]);
+  const [newSkillsLevel,setNewSkillsLevel] = useState([]);
+
+
 
 
   const [partOne,setPartOne] = useState('partOne');
@@ -106,7 +113,23 @@ const Template2 = () =>{
     setShowCenter('showLive');
 
   }
+ 
+  const handleNew = () => {
+    let newInput = [...newSkill,[]];
+    setNewSkill(newInput);
   
+  }
+  const handleAdd = (event,index) =>{
+    let inputData = [...newSkill]; 
+     inputData[index] = event.target.value; 
+     setNewSkill(inputData);
+      }
+   
+  const getLevel = (event) =>{
+     setSkillsLevel(event.target.value)
+   
+  }
+ 
   
   //////////////// VALIDATION 
   
@@ -132,6 +155,7 @@ initialValues:{
  university:'',
  faculty:'',
  degree:'',
+ skills: '',
  
  startUni:'',
  endUni:'',
@@ -204,10 +228,6 @@ else{
     <input  type="text" id="lastName" value={values.lastName} onChange={handleChange} placeholder="enter your Last name" required />  <br />
     { <small className=" ">{errors.lastName}<br /></small>}
 
-    {/* <label htmlFor="job">Job Title</label> <br />
-     <input type="text" id="job" value={values.jobTitle} onChange={handleChange} placeholder="enter your  jobTitle" /> <br />
-     {errors.jobTitle && touched.jobTitle &&  <small className=" ">{errors.jobTitle}<br /></small>} */}
-
 
      <label htmlFor="phone">Phone </label> <br />
      <input type="text"   id="phone"  value={values.phone} onChange={handleChange}  placeholder="your phone number" /> <br />
@@ -251,11 +271,11 @@ else{
         { <small className=" ">{errors.post}<br /></small>}
           
 
-         <label htforom="startDate">Start Date:</label><br />
-         <input type="date" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
-         { <small className=" ">{errors.startDate}<br /></small>}
-         <label htforom="endDate">End Date:</label> <br />
-         <input className='' id="endDate"  type="date"  value={values.end} onChange={handleChange}  placeholder="end Date"/> <br /><br />
+         <label htmlFor="startDate">Start Date:</label><br />
+         <input type="month" className="" id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> <br />
+         { <small className="text-danger">{errors.startDate}<br /></small>}
+         <label htmlFor="endDate">End Date:</label> <br />
+         <input className='' id="endDate"  type="month"  value={values.end} onChange={handleChange}  placeholder="end Date"/> <br />
          { <small className=" ">{errors.email}<br /></small>}
          <div className="btn btn-sm btn-outline-light me-4" onClick={showPartOne} >Go To Back</div> 
          <div onClick={showPartThree}  className={`btn btn-sm btn-outline-light   ${isValid_2 == false ? 'disabled'  : ''}`}>save and continue </div>
@@ -283,9 +303,27 @@ else{
          <input type="number" className="" id="startUni"  value={values.startUni}  onChange={handleChange} placeholder="start Date"/> <br />
          <label htforom="endUni" >End Date:</label> <br />
          <input className='' id="endUni"  type="number" value={values.endUni} onChange={handleChange} placeholder="end Date"/> <br /><br />
-        
+         
+         <label htforom="skills" >skills:</label> <br />
+         <input className='' id="skills"  type="text" value={values.skills} onChange={handleChange} placeholder="skills "/> <br /><br />
+          
+          {/* <input value="25%"  readOnly className="skill-level" onClick={getLevel} />
+          <input value="50%"  readOnly className="skill-level" onClick={getLevel} />
+          <input value="75%"  readOnly className="skill-level" onClick={getLevel} />
+          <input value="100%" readOnly className="skill-level" onClick={getLevel} /> <br />
+ */}
+
+         {newSkill.map((value,index) => {
+        return <div key={index} ><input type="text" className="d-block" onChange={e => handleAdd(e,index) }/>
+         
+        </div>
+      })}
+      <div className="btn btn-success my-1" onClick={handleNew}>Add</div> <br />
+
+
         <div className="btn btn-sm btn-outline-light me-5" onClick={showPartTwo}>Go To Back</div>  
-    <div onClick={showResult}  className={`btn btn-sm btn-outline-light   ${isValid_3 == false ? 'disabled'  : ''}`}>save and show </div>
+        
+        <div onClick={showResult}  className={`btn btn-sm btn-outline-light   ${isValid_3 == false ? 'disabled'  : ''}`}>save and show </div>
         
 
          
@@ -330,17 +368,16 @@ else{
           <span >{values.summery} </span>
   
           <h2 className="mt-3">Experience</h2>
-          
-           
             <p> work in {values.experince}: <br /> {values.post} position Start <br /> {`${values.startDate} to ${values.endDate}`} </p>
-          
-          
+        
+          <h2 className="mt-4">Skills</h2>
+         
+          <i className="badge bg-success mx-1">{values.skills}</i>
 
-          {/* </ul>
-          <h5 className="mt-4">Skills</h5>
-         {[skills.split(',').map((skill,ind) => <div  className="progress bg-info">{skill}</div>)]} */}
+         {[newSkill.map((sk,index) => <div className="badge bg-success mx-1" key={index}>{sk}</div>)]}
 
-      <h2 className="mt-4">Education</h2>
+
+       <h2 className="mt-4">Education</h2>
          {values.university} at {values.faculty} in {values.degree} {`${values.startUni} - ${values.endUni}`}
 
         </div>
@@ -365,83 +402,3 @@ else{
 
 export default Template2;
   
-
-
-
-// <div className="col-5 d-none d-lg-block">
-
-
-// <div className="row" >
-//          <div className="col-6 col-sm-9" >
-            
-//             <div className=" mt-3 " style={{backgroundColor:`${headerColor}`}} >
-//             <img src="./masih.jpg" width="60"  className="mx-4 border  border-dark rounded float-start"/>
-//                 <div className="" >
-//                     <b className="text-capitalize" style={{color:`${headerFontColor}`}}>{name}</b><span className="d-block text-center" >{jobTitle}</span>
-                 
-//                 </div>
-//             </div>
-//             <div style={{ backgroundColor:`${fullBodyColor}`}}>
-//             <div>
-//               <h4 className='title2' style={{color:`${titleFontColor}`}}>Work Experince</h4>
-//                 <p className="ps-3" style={{color:`${fullBodyFontColor}`}}>{experince}</p>
-//             </div>
-
-//             <div>
-//                 <h4 className='title2' style={{color:`${titleFontColor}`}}>Project</h4>
-//                <div className="ps-3"> <ul><li><a href={projects}>{projects}</a></li></ul></div>
-//             </div>
-
-//             <div>
-//                 <h4 className='title2' style={{color:`${titleFontColor}`}}>Intrest</h4>
-//                <div className="ps-3 badge badge-lg mx-1 bg-secondary "> {intrests}</div>
-//             </div>
-                
-//             <div>
-//                 <h4 className='title2' style={{color:`${titleFontColor}`}}>education</h4>
-//                 <p className="ps-3"  style={{color:`${fullBodyFontColor}`}}>{education}</p>
-//             </div>
-//          </div>
-//          </div>
-
-        
-
-//          <div className="col-6 col-sm-3">
-//     <div className="card " style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}}>
-//     <div className="card-body">
-//         <div>{phone}</div>
-//         <div>{facebook}</div>
-//         <div>{github}</div>
-//         <div>{location}</div>
-//         <div>{linkedin} </div>
-//         <div>{email}</div>
-//     </div>
-//     </div>
-
-//     <div className='card  mt-2' style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}}>
-//         <div className="card-body">
-//             <div className="mb-3 text-uppercase">Skills</div>
-//             <div className=''>{[skills].map((skill,index) =>{<div key={index} className="ps-3 badge p-2 bg-secondary mx-1">{skill}</div>})}</div>
-//         </div>
-//     </div>
-//     <div className='card mt-2 ' style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}}>
-//         <div className="card-body">
-//             <div className="d-block text-uppercase">Certificates</div>  
-            
-//         </div>
-//     </div>
-
-//     <div className='card  mt-2 ' style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}}>
-//         <div className="card-body">
-//             <div className="d-block text-uppercase">Languages</div>  
-//             <div>{language}/ {level}</div>
-//             <div>{language2}/ {level2}</div>
-//         </div>
-//     </div>
-   
-   
-//     </div>
-//     </div>
-
-  
-//  </div>

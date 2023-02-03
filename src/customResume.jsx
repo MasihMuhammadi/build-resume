@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Resume from './resume';
 import Home from './home'
-import Joi from 'joi';
+
 import axios from 'axios';
 
 const CustomResume = () => {
