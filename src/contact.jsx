@@ -21,22 +21,20 @@ const Contact = () =>{
         });
     };
     let schema = yup.object( {
-        email:yup.string().email('please enter a valid email').required('email is required field *'),
-        name:yup.string().required('name is required field *'),
+        user_email:yup.string().email('please enter a valid email').required('email is required field *'),
+        user_name:yup.string().required('name is required field *'),
       });
 
       let {values,handleChange,errors,handleSubmit,touched} = useFormik({
         initialValues:{
-          email:"",
-            name:"",
+          user_name:"",
+          user_email:"",
           },
           validationSchema:schema,
           sendEmail,
         })
         
-        
 
-   
     return(
         <>
             <div className="contact-page bg-dark">
@@ -44,7 +42,7 @@ const Contact = () =>{
                         <a  target="_blank" href="https://wa.me/+93749102015" ><img className="mx-3" src="../whatsapp.png" /></a> 
                         <a  target="_blank" href="https://www.github.com/MasihMuhammadi" ><img className="mx-3" src="../github.png" /></a>  
                         <a  target="_blank" href="https://www.instagram.com/ma_3ih.qara___202"><img className="mx-3" src="../instagram.png" /></a>     
-                        <a  target="_blank" href="https://www.linkedin.com/"><img className="mx-3" src="../linkedin.png" /></a>    
+                        <a  target="_blank" href="https://www.linkedin.com/in/masihullah-muhammadi-794964257/"><img className="mx-3" src="../linkedin.png" /></a>    
                     </div>
                 <div className="contact-form">
                 <h1 className=" text-center text-light">Contact Us</h1>
@@ -52,14 +50,16 @@ const Contact = () =>{
                
                 <form ref={form} onSubmit={handleSubmit}  className="mt-4">
                 <div className='form-group'>
-                    <label htmlFor="name" className='text-light'>Name*</label><br />
-                        <input type="text" onChange={handleChange} value={values.name} name="user_name" className="contact-input"id="name"/>
+                    <label htmlFor="user_name" className='text-light'>Name*</label><br />
+                    <input onChange={handleChange} value={values.name} type="text" id="user_name" name="user_name" className="contact-input" />
+                        
                         {errors.name && touched.name && <small className="text-danger">{errors.name}</small>}
                     
                 </div>
                 <div className='form-group'>
-                    <label htmlFor="email" className='text-light'>Email Adress*</label><br />
-                        <input type="email" onChange={handleChange} value={values.name} name="user_email" className="contact-input" id="email" />
+                    <label htmlFor="user_email" className='text-light'>Email Adress*</label><br />
+                    <input onChange={handleChange} value={values.email} type="email" id="user_email" name="user_email" className="contact-input" />
+
                         {errors.email && touched.email && <small className="text-danger">{errors.email}</small>}
 
                 </div>
