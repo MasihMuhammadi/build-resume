@@ -2,6 +2,7 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
+  import jsPDF from "jspdf";
 
 
 
@@ -68,6 +69,7 @@ const Template6 = () =>{
   const [interests,setInterests] = useState('');
   const [language_level,setLanguage_level] = useState('');
   const [NewLanguage_level,setNewLanguage_level] = useState('');
+  const [image,setImage] = useState();
 
 
 
@@ -93,7 +95,20 @@ const Template6 = () =>{
   const [bodyFontColor,setBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('');
 
-  
+  const handleProf = (e) =>{
+    setImage(e.target.files[0]);
+  }
+
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
   
   const showPartOne = (event) =>{
     setPartOne('partOne');
@@ -114,6 +129,8 @@ const Template6 = () =>{
     setPartFour('d-none');
     setPartFive('d-none');
     setPartSex('d-none');
+    event.preventDefault()
+    setImage(URL.createObjectURL(image))
 
   }
 
@@ -333,7 +350,7 @@ validationSchema:schema,
     
 
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" multiple={false} onChange={handleProf} /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -495,7 +512,7 @@ validationSchema:schema,
       
 
   <div className={`${showLive}`}>
-    <div className="template2 p-3  mx-2" style={{backgroundColor:`${values.bodyColor}`,color:`${values.bodyFontColor}`}}>
+    <div className="template2 p-3  mx-2" id="full_CV" style={{backgroundColor:`${values.bodyColor}`,color:`${values.bodyFontColor}`}}>
     <div className="header-6 row border-bottom border-primary">
         
         <div className="col-4">
@@ -504,7 +521,7 @@ validationSchema:schema,
             <p>{values.summery}</p>
         </div>
         <div className="col-3">
-        <img src="../prof.JPG" className="prof6 mt-3 ms-2" width="150" height="200"  />
+        <img src={image} className="prof6 mt-3 ms-2" width="150" height="200"  />
 
         </div>
         <div className="col-5">
@@ -556,7 +573,7 @@ validationSchema:schema,
             <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input className="color" id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
-
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
           </div>
   </div>
 

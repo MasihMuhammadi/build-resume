@@ -2,6 +2,7 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
+  import jsPDF from "jspdf";
 
 
 
@@ -16,7 +17,6 @@ const Template5 = () =>{
     name:yup.string().required('name is required field *').matches(alphabet,'enter a valid name').min(3).max(14),
     lastName:yup.string().required('name is required field *').matches(alphabet,'enter a valid Last name').min(4).max('9'),
     address:yup.string().required('address is required field *'),
-    
     email:yup.string().email('please enter a valid email').required('email is required field *'),
     jobTitle:yup.string().required('job title is required field *').matches(alphabet,'enter a valid job Title').min(3).max(9),
     phone:yup.string().matches(numbers,'please enter a valid number').required('phone is a required field'),
@@ -84,9 +84,23 @@ const Template5 = () =>{
   const [bodyColor,setBodyColor] = useState('');
   const [bodyFontColor,setBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('');
+  const [image,setImage] = useState();
 
   
-  
+  const handleProf = (e) =>{
+    setImage(e.target.files[0])
+  }
+   
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
   const showPartOne = (event) =>{
     setPartOne('partOne');
     setPartTwo('d-none');
@@ -103,7 +117,8 @@ const Template5 = () =>{
     setPartThree('d-none');
     setPartFour('d-none');
     setPartFive('d-none');
-
+    event.preventDefault()
+    setImage(URL.createObjectURL(image))
   }
 
   const showPartThree = (event) =>{
@@ -288,7 +303,7 @@ validationSchema:schema,
 
 
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" multiple={false} onChange={handleProf}  /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -423,13 +438,13 @@ validationSchema:schema,
  
 
   <div className={`${showLive}`}>
-    <div className="template2 p-3  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+    <div className="template2 mx-2" >
 
-      <div className="row  pure-cv">
+      <div className="row  p-3  pure-cv" id="full_CV" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
-        <img src="../prof.JPG" className="prof4 mt-3 ms-2" width="150" height="200"  />
+        <img src={image} className="prof4 mt-3 ms-2" width="150" height="200"  />
             
           </div>
             
@@ -469,13 +484,14 @@ validationSchema:schema,
 
 
     </div>
+  </div>
           <div className={`${showColores} colores`}>
             <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input className="color" id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
-
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
+           
           </div>
-  </div>
 
 
  </div>

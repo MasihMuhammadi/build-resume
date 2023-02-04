@@ -2,6 +2,7 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
+  import jsPDF from "jspdf";
 
 
 
@@ -87,9 +88,22 @@ const Template4 = () =>{
   const [bodyColor,setBodyColor] = useState('');
   const [bodyFontColor,setBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('');
+  const [ image,setImage] = useState();
+  
+  const handleProf = (e) =>{
+    setImage(e.target.files[0])
+  }
 
-  
-  
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
   const showPartOne = (event) =>{
     setPartOne('partOne');
     setPartTwo('d-none');
@@ -106,7 +120,8 @@ const Template4 = () =>{
     setPartThree('d-none');
     setPartFour('d-none');
     setPartFive('d-none');
-
+    event.preventDefault()
+    setImage(URL.createObjectURL(image))
   }
 
   const showPartThree = (event) =>{
@@ -306,7 +321,7 @@ validationSchema:schema,
 
 
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" multiple={false} onChange={handleProf} /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -421,9 +436,9 @@ validationSchema:schema,
  
 
   <div className={`${showLive}`}>
-    <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+    <div className="template2  mx-2" >
 
-      <div className="row  pure-cv">
+      <div className="row  pure-cv p-2" id="full_CV" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
@@ -454,8 +469,8 @@ validationSchema:schema,
 
           </div>
         <div className="col-6 mt-2 two px-3">
-        <img src="../prof.JPG" className="prof4 mt-3 ms-5" width="150" height="200"  />
-        <button>select</button>
+        <img src={image} className="prof4 mt-3 ms-5" width="150" height="200"  />
+     
 
 
         <h4 className="mt-4" style={{color:`${values.titleFontColor}`}}>Personal </h4>
@@ -495,13 +510,14 @@ validationSchema:schema,
 
 
     </div>
+  </div>
           <div className={showColores}>
             <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input className="color" id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
-
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
+            
           </div>
-  </div>
 
 
  </div>

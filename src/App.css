@@ -440,7 +440,7 @@ ul li a:hover{
 .signup{
     position:absolute;
     width:350px;
-    height:420px;
+    height:450px;
     inset: 2px;
     background:white;
     border-radius:20px;
@@ -458,7 +458,7 @@ ul li a:hover{
 .box-signUp{
     position:relative;
     width:355px;
-    height: 420px;
+    height: 450px;
     background:white;
     border-radius:20px;
     overflow: hidden;

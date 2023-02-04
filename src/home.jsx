@@ -34,6 +34,8 @@ const Home = () =>{
             setToggle(!toggle);
             setNavbar('d-none');
             setNavbar(' sm-navbar-hide d-sm-none')
+            setBurgerClick('')
+
            
         }
     

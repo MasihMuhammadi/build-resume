@@ -22,7 +22,7 @@ const Contact = () =>{
     };
     let schema = yup.object( {
         user_email:yup.string().email('please enter a valid email').required('email is required field *'),
-        user_name:yup.string().required('name is required field *'),
+        user_name:yup.string().required('name is required field *').min(3,'name must be at least 3 number').max(10,'name is too longer'),
       });
 
       let {values,handleChange,errors,handleSubmit,touched} = useFormik({
@@ -51,16 +51,15 @@ const Contact = () =>{
                 <form ref={form} onSubmit={handleSubmit}  className="mt-4">
                 <div className='form-group'>
                     <label htmlFor="user_name" className='text-light'>Name*</label><br />
-                    <input onChange={handleChange} value={values.name} type="text" id="user_name" name="user_name" className="contact-input" />
+                    <input onChange={handleChange} value={values.user_name} type="text" id="user_name" name="user_name" className="contact-input" />
                         
-                        {errors.name && touched.name && <small className="text-danger">{errors.name}</small>}
+                        {errors.user_name && touched.user_name && <small className="text-danger">{errors.user_name}</small>}
                     
                 </div>
                 <div className='form-group'>
                     <label htmlFor="user_email" className='text-light'>Email Adress*</label><br />
-                    <input onChange={handleChange} value={values.email} type="email" id="user_email" name="user_email" className="contact-input" />
-
-                        {errors.email && touched.email && <small className="text-danger">{errors.email}</small>}
+                    <input onChange={handleChange} value={values.user_email} type="email" id="user_email" name="user_email" className="contact-input" />
+                        {errors.user_email && touched.user_email && <small className="text-danger">{errors.user_email}</small>}
 
                 </div>
                 <div className='form-group'>

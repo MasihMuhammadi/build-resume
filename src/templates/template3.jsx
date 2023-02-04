@@ -2,7 +2,7 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
-
+  import jsPDF from "jspdf";
 
 
 
@@ -61,6 +61,7 @@ const Template3 = () =>{
   const [skillsLevel,setSkillsLevel] = useState('');
   const [addLanguage,setAddLanguage] = useState();
   const [summery,setSummery] = useState('');  
+   const [image,setImage] = useState('');
   
   const [partOne,setPartOne] = useState('partOne');
   const [partTwo,setPartTwo] = useState('d-none');
@@ -82,8 +83,20 @@ const Template3 = () =>{
   const [bodyFontColor,setBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('');
 
-  
-  
+  const handleProf=(e) =>{
+    setImage(e.target.files[0]);
+    
+  }
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
   const showPartOne = (event) =>{
     setPartOne('partOne');
     setPartTwo('d-none');
@@ -100,6 +113,8 @@ const Template3 = () =>{
     setPartThree('d-none');
     setPartFour('d-none');
     setPartFive('d-none');
+    event.preventDefault()
+    setImage(URL.createObjectURL(image))
 
   }
 
@@ -284,7 +299,7 @@ validationSchema:schema,
           { <small className=" ">{errors.summery}<br /></small>}
 
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" multiple={false} onChange={handleProf} /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -429,13 +444,13 @@ validationSchema:schema,
  
 
   <div className={`${showLive}`}>
-    <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+    <div className="template2  mx-2" >
 
-      <div className="row pure-cv">
+      <div className="row p-2 pure-cv" id="full_CV" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
         <div className="col-6 one" >
        
           <div className="  ps-2  pt-4">
-            <img src="../prof.JPG" className="prof3" style={{ border:`solid 25px ${values.titleFontColor}`}} width="150" height="200"  /></div>
+            <img src={image} className="prof3" style={{ border:`solid 25px ${values.titleFontColor}`}} width="150" height="200"  /></div>
           <div className="mt-3  ps-2"> 
 
           
@@ -499,13 +514,14 @@ validationSchema:schema,
 
 
     </div>
+  </div>
           <div className={`${showColores} colores`}>
             <input  className="color " id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input  className="color " id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input  className="color " id="titleFontColor" type="color" value={values.titleFontColor} onChange={handleChange}/>
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
 
           </div>
-  </div>
 
 
  </div>

@@ -2,6 +2,8 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
+  import axios from "axios";
+  import jsPDF from "jspdf";
 
 
 
@@ -73,7 +75,7 @@ const Template1 = () =>{
   const [showLive,setShowLive] = useState('d-none d-lg-block');
   const [showCenter,setShowCenter] = useState('');
 
-
+  const [image,setImage] = useState('');
   const [showColores,setShowColores] = useState('d-none')
   const [headerColor,setHeaderColor] = useState('');
   const [headerFontColor,setHeaderFontColor] = useState('');
@@ -83,7 +85,10 @@ const Template1 = () =>{
   const [fullBodyFontColor,setFullBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('')
   
-  
+  const handleProf=(e) =>{
+    setImage(e.target.files[0]);
+    
+  }
   const showPartOne = (event) =>{
     setPartOne('partOne');
     setPartTwo('d-none');
@@ -100,6 +105,9 @@ const Template1 = () =>{
     setPartThree('d-none');
     setPartFour('d-none');
     setPartFive('d-none');
+    event.preventDefault();
+    setImage(URL.createObjectURL(image))
+    
 
   }
 
@@ -168,7 +176,16 @@ const Template1 = () =>{
 
   }
  
-  
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
   
   
   
@@ -267,7 +284,8 @@ validationSchema:schema,
    
 
   return(<>
-      <div className=''>
+
+      <div className='' download >
   
   <div className={`${showCenter} inputes bg-dark pt-5 `}>
   <div className="">
@@ -287,7 +305,7 @@ validationSchema:schema,
           { <small className=" ">{errors.summery}<br /></small>}
 
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" onChange={handleProf} multiple={false}  /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -424,13 +442,13 @@ validationSchema:schema,
   </div> 
  
 
-  <div className={`${showLive}`}>
-    <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+  <div className={`${showLive}`} >
+    <div className="template2 mx-2"  >
 
-      <div className="row  pure-cv">
+      <div className="row p-2 pure-cv" id="full_CV" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
         <div className="col-6 one" >
           <div className="shadow" style={{backgroundColor:`${values.headerColor}`}}>
-          <div className="  ps-2  pt-4"><img src="../prof.JPG" className="prof2" width="150" height="200"  /></div>
+          <div className="ps-2  pt-4"><img src={image}  className="prof2" width="150" height="200"  /></div>
           <div className="mt-3  ps-2"> 
             
             <h2>Profile</h2>
@@ -472,27 +490,24 @@ validationSchema:schema,
           <h2>Language</h2>
           {[values.language].map((lang,ind) => <li key={ind}>{lang} / {values.language_level} </li>)}
           {[NewLanguage.map((lang,index) => <li className="" key={index}>{lang} / {NewLanguage_level[index]}</li>)]}
-         
 
-
-        
-    
         </div>
 
       </div>
 
 
     </div>
-          <div className={showColores}>
-            <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
-            <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
-            <input className="color" id="headerColor" type="color" value={values.headerColor} onChange={handleChange}/>
-
-          </div>
   </div>
 
 
  </div>
+          <div className={showColores}>
+            <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
+            <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
+            <input className="color" id="headerColor" type="color" value={values.headerColor} onChange={handleChange}/>
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
+       
+          </div>
 </div>
   </>)
 }

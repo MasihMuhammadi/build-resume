@@ -2,6 +2,7 @@
   import React,{useState} from "react"
   import * as yup from 'yup'
   import { useFormik } from "formik";
+  import jsPDF from "jspdf";
 
 
 
@@ -54,7 +55,7 @@ const Template2 = () =>{
   const [endUni,setEndUni] = useState('');
   const [showLive,setShowLive] = useState('d-none d-lg-block');
   const [showCenter,setShowCenter] = useState('');
-
+  const[image,setImage] = useState();
   const [submitting, setSubmitting] = useState();
 
   
@@ -85,6 +86,21 @@ const Template2 = () =>{
   const [fullBodyFontColor,setFullBodyFontColor] = useState('');
   const [titleFontColor,setTitleFontColor] = useState('')
 
+  const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        
+        pdf.save('my Cv')
+      }
+    });
+  };
+
+  const handleProf=(e) =>{
+    setImage(e.target.files[0]);
+    
+  }
 
   const showPartOne = (event) =>{
     setPartOne('partOne');
@@ -96,6 +112,8 @@ const Template2 = () =>{
     setPartOne('d-none');
     setPartTwo('partTwo');
     setPartThree('d-none')
+    event.preventDefault()
+    setImage(URL.createObjectURL(image));
   }
 
   const showPartThree = (event) =>{
@@ -242,7 +260,7 @@ else{
     <input type="email"   id="email"   value={values.email} onChange={handleChange}   placeholder=" your Email" /> <br />
     { <small className=" ">{errors.email}<br /></small>}
     
-    <input type="file" multiple={false}  /> <br />
+    <input type="file" onChange={handleProf} multiple={false}  /> <br />
 
     <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light   ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
      
@@ -335,12 +353,12 @@ else{
  
 
   <div className={`${showLive}`}>
-    <div className="template2  mx-2" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
+    <div className="template2  mx-2"  >
 
-      <div className="row pure-cv">
+      <div className="row p-2 pure-cv" id="full_CV" style={{backgroundColor:`${values.bodyColor}`, color:`${values.bodyFontColor}`}}>
         <div className="col-6 one" >
           <div className="shadow" style={{backgroundColor:`${values.headerColor}`}}>
-          <div className="  ps-2  pt-4"><img src="../prof.JPG" className="prof2" width="150" height="200"  /></div>
+          <div className="  ps-2  pt-4"><img src={image} className="prof2" width="150" height="200"  /></div>
           <div className="mt-3  ps-2"> 
           <h2 className="px-1">{values.name} </h2>
           <h3 className="px-1">{values.lastName}</h3>
@@ -386,16 +404,16 @@ else{
 
 
     </div>
+  </div>
+
+ </div>
           <div className={showColores}>
             <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
             <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
             <input className="color" id="headerColor" type="color" value={values.headerColor} onChange={handleChange}/>
+            <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button>
 
           </div>
-  </div>
-
-
- </div>
 </div>
   </>)
 }
