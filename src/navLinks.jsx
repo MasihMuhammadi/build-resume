@@ -7,11 +7,13 @@ import CustomResume from './customResume'
 import AnotherHome from './anotherHome'
 import Home from './home'
 import Templates from './templates'
-const NavLinks = () =>{
+const NavLinks = () =>{ 
     return<>
          
         
+            {/* <img className="float-s position-absolute px-2 logo" src="logo.png" /> */}
                 <ul className="nav-links ">
+
                 <li className="">
                         <Link className="navs d-none d-sm-block " to="/">Home</Link>
                      </li> 

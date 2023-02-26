@@ -64,18 +64,18 @@ return<>
             <div className="line3"></div>
         </div>
 
-        <div>
-             <div className={`sm-navbar-show ${navbar} ` }>
+        <div className="">
+             <div className={` sm-navbar-show ${navbar} ` }>
             <Link className="sm-links mx-3 d-sm-none mt-5  " onClick={hideNavbar} to="/">Home</Link>
             <Link className="sm-links mx-3  d-sm-none mt-5  " onClick={hideNavbar} to="signUp">Sign Up</Link>
             <Link className="sm-links mx-3  d-sm-none mt-5  " onClick={hideNavbar} to="logIn">Log In</Link>
             <Link className="sm-links mx-3  d-sm-none mt-5  " onClick={hideNavbar} to="templates"> Resume</Link>
             <Link className="sm-links mx-3  d-sm-none mt-5  " onClick={hideNavbar} to="contact"> Contact</Link>
-            
             </div> 
         </div>
      <NavLinks />
         <Routes>
+            
             <Route path="/" element={<AnotherHome />} />
             <Route path="signUp" element={<SignUp />} />
             <Route path="logIn" element={<LogIn />}/>

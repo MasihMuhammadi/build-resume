@@ -22,6 +22,12 @@
     line-break:auto;
     
 }
+.logo{
+    width:100px;
+    height:100px;
+    float:left;
+
+}
 .skill-level{
 background-color: white;
 width:40px;
@@ -366,7 +372,6 @@ ul li a:hover{
     border-left:2px solid whitesmoke;
     animation:bio  3.3s steps(15) infinite;
     
-
 }
 
 @media (min-width:1024px){
