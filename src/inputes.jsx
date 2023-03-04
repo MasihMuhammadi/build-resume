@@ -1,5 +1,5 @@
 
-import React,{useState} from "react"
+import React,{useEffect, useState} from "react"
 import * as yup from 'yup'
 import { useFormik } from "formik";
 import jsPDF from "jspdf";
@@ -7,7 +7,7 @@ import jsPDF from "jspdf";
 
 
 
-const Inputes = () =>{
+const Inputes = (props) =>{
 
 
 let alphabet = /^[A-za-z]+$/;
@@ -17,13 +17,12 @@ let schema = yup.object( {
   name:yup.string().required('name is required field *').matches(alphabet,'enter a valid name').min(3).max(14),
   lastName:yup.string().required('name is required field *').matches(alphabet,'enter a valid Last name').min(4).max('9'),
   address:yup.string().required('address is required field *'),
-  
   email:yup.string().email('please enter a valid email').required('email is required field *'),
   jobTitle:yup.string().required('job title is required field *').min(3).max(14),
   phone:yup.string().matches(numbers,'please enter a valid number').required('phone is a required field').min(10).max(13),
   summery:yup.string().required('summery is required field *'),
   experince:yup.string().required('experince is required field *').matches(alphabet,'enter a valid experince').min(3).max(9),
-  post:yup.string(),
+  post:yup.string().required(" position is required"),
   university:yup.string().required('name is required university *').matches(alphabet,'enter a valid university').min(3).max(9),
   faculty:yup.string().required('faculty is required field *').min(3).max(20),
   degree:yup.string().required('degree is required field *').matches(alphabet,'enter a valid faculty').min(3).max(9),
@@ -45,9 +44,15 @@ const [jobTitle,setJobTitle] = useState();
 const [linkedin,setLinkedin] = useState('')
 const [email,setEmail] = useState('');
 const [address,setAdress] = useState('');
-const [DoB,setDoB] = useState('');
-const [NewLanguage,setNewLanguage]  = useState([]);
 const [project,setProject]  = useState([]);
+let [isValid,setIsValid] = useState(false);
+let [isValid_2,setIsValid_2] = useState(false);
+let [isValid_3,setIsValid_3] = useState(false);
+let [isValid_4,setIsValid_4] = useState(false);
+let [isValid_5,setIsValid_5] = useState(false);
+let [isValid_6,setIsValid_6] = useState(false);
+let [disabled, setDisabled] = useState('disabled')
+
 
 
 
@@ -69,7 +74,9 @@ const [language,setLanguage] = useState('');
 const [interests,setInterests] = useState('');
 const [language_level,setLanguage_level] = useState('');
 const [NewLanguage_level,setNewLanguage_level] = useState('');
-const [image,setImage] = useState();
+const [NewLanguage,setNewLanguage]  = useState([]);
+const [DoB,setDoB] = useState('');
+let [image,setImage] = useState();
 
 
 
@@ -104,7 +111,6 @@ const creatPdf = () =>{
   doc.html(document.querySelector('#full_CV'),{
     callback:function(pdf){
       let pageCount = doc.internal.getNumberOfPages();
-      
       pdf.save('my Cv')
     }
   });
@@ -130,7 +136,8 @@ const showPartTwo = (event) =>{
   setPartFive('d-none');
   setPartSex('d-none');
   event.preventDefault()
-  setImage(URL.createObjectURL(image))
+  
+  props.onClick(URL.createObjectURL(image))
 
 }
 
@@ -219,13 +226,15 @@ const handleAddLevel = (event,index) =>{
 
 
 
+let{handleChange, errors,values} = useFormik({
 
-function handleChange(){
-  let{handleChange,errors,values} = useFormik({
      initialValues:{
+      
   // part One
+ 
   name:'',
   lastName:'',
+ 
   // part Two
   summery:'',
   experince:'',
@@ -245,6 +254,8 @@ function handleChange(){
   // partFour
   skills:'',
   language:'',
+  NewLanguage:'',
+  NewLanguage_level:'',
   language_level:'',
   interests:'',
   
@@ -263,30 +274,26 @@ function handleChange(){
   
   },
   validationSchema:schema,
-  
-  });
 
-}
+});
+// (URL.createObjectURL(values.image))
 
-let isValid = false ;
-let isValid_2 = false;
-let isValid_3 = false;
-let isValid_4 = false;
-let isValid_5 = false;
-let isValid_6 = false;
+useEffect(() =>{
+  props.onChange( values);
+
+})
 
 
-
-
-if(errors.name == null && errors.jobTitle == null && errors.summery == null ){
+if((errors.name,errors.jobTitle , errors.summery) == null ){
   isValid = true;
+
   if(errors.experince == null && errors.post == null ){
       isValid_2  = true;
       if(errors.university == null && errors.faculty == null && errors.degree  == null ){
              isValid_3 = true;
           if(errors.skills == null ){
             isValid_4 = true; 
-               if(errors.language == null && errors.interests == null ){
+               if(errors.language == null  ){
               isValid_5 = true; 
               if(errors.email == null && errors.phone == null && errors.linkedin == null ){
                   isValid_6 = true; 
@@ -345,9 +352,9 @@ return(<>
   
 
   
-  <input type="file" multiple={false} onChange={handleProf} /> <br />
+  <input type="file" id='image' multiple={false} onChange={handleProf}  /> <br />
 
-  <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light  ${isValid == false ? 'disabled'  : ''}`}>save and continue </div>
+  <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light ${isValid == false ? 'disabled' : ''}`}>save and continue </div>
    
 
   </div>
@@ -421,9 +428,9 @@ return(<>
       <input type="text"  id="skills" value={values.skills} placeholder="e.g web development" onChange={handleChange} /> <br />
        {errors.skills &&  <small className=" ">{errors.skills}<br /></small>}
 
-       <label htmlFor="project" >Project</label> <br />
+       {/* <label htmlFor="project" >Project</label> <br />
        <input className='' id="project"  type="text" value={values.project} onChange={handleChange} placeholder="your project link"/> <br />
-       {errors.project &&  <small className=" ">{errors.project}<br /></small>}
+       {errors.project &&  <small className=" ">{errors.project}<br /></small>} */}
 
 
       <div onClick={showPartThree} className="btn btn-sm btn-outline-light me-5 mt-3" >Go To Back</div>  
@@ -438,10 +445,10 @@ return(<>
 
   <div className={`mx-2 ${partFive}`}>
     <form action="">
-    <label htmlFor="interests">interests</label>  <br />
-     
+   
+    {/* <label htmlFor="interests">interests</label>  <br />
       <input type="text" className="d-inline"  id="interests" value={values.interests} placeholder="e" onChange={handleChange} /> 
-       {errors.interests &&  <small className=" ">{errors.interests}<br /></small>}
+       {errors.interests &&  <small className=" ">{errors.interests}<br /></small>} */}
 
 
     <label htmlFor="language">Language</label>  <br />
@@ -467,7 +474,7 @@ return(<>
 
     })}
 
-    <div className="btn btn-success my-1" onClick={handleNew}>Add</div> <br />
+    <button className="btn btn-success btn-sm my-1" onClick={handleNew}>Add</button> <br />
 
     
       <div onClick={showPartFour} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
@@ -502,6 +509,14 @@ return(<>
   
   </div>
 </div> 
+
+<div className={showColores}>
+            <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
+            <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
+            <input className="color" id="headerColor" type="color" value={values.headerColor} onChange={handleChange}/>
+            {/* <button onClick={creatPdf} className="btn btn-warning mb-3 float-end">Download PDF</button> */}
+       
+          </div> 
 
 
     
