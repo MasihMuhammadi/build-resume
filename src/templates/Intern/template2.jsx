@@ -3,7 +3,8 @@
   import * as yup from 'yup'
   import { useFormik } from "formik";
   import jsPDF from "jspdf";
-import Inputes from "../inputes";
+  import InternForms from "../Intern/internForms";
+
 
 
 
@@ -39,6 +40,7 @@ const Template2 = () =>{
  const [showLive,setShowLive] = useState('d-none d-lg-block');
  const [project,setProject] = useState('');
  const [interest,setInterest] = useState('');
+ const [downloadBtn,setDownloadBtn] = useState('d-none')
 
 
  const showData =(data) =>{
@@ -71,68 +73,75 @@ const Template2 = () =>{
  const showProf = (img) =>{
   setImage(img)
 }
- return(<>
-<div className='row bg-dark'>
-  <div className="col-sm">
-    <Inputes  onChange={showData} onClick={showProf}/>
-  </div>
 
-  <div className={`col-sm ${showLive}`}>
-    <div className="template2  mx-2"  >
+const creatPdf = () =>{
+  let doc = new jsPDF('p','pt','a4');
+  doc.html(document.querySelector('#full_CV'),{
+    callback:function(pdf){
+      let pageCount = doc.internal.getNumberOfPages();
+      pdf.deletePage(pageCount)
+      pdf.save('my Cv')
+    }
+  });
+};
 
-      <div className="row p-2 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
-        <div className="col-6 one" >
-          <div className="shadow" style={{backgroundColor:`${headerColor}`}}>
-          <div className="  ps-2  pt-4"><img src={image} className="prof2" width="150" height="200"  /></div>
-          <div className="mt-3  ps-2"> 
-          <h2 className="px-1">{name} </h2>
-          <h3 className="px-1">{lastName}</h3>
-          <h5 className="px-1">{jobTitle}</h5>
+const showDownloadBtn = (showBtn) =>{
+  setDownloadBtn('d-block')
+}
 
-            <div className="mt-3">
+return(<>
+  <div className='row bg-dark'>
+    <div className="col-sm">
+      <InternForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
+    </div>
+    <div className={`col-sm ${showLive}`}>
+      <div className="template2  mx-2"  >
+        <div className="row p-2 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
+          
+          <div className="col-6 one" >
+            <div className="shadow" style={{backgroundColor:`${headerColor}`}}>
+              <div className="  ps-2  pt-4"><img src={image} className="prof2" width="150" height="200"  /></div>
+              
+              <div className="mt-3  ps-2"> 
+                <h2 className="px-1">{name} </h2>
+                <h3 className="px-1">{lastName}</h3>
+                <h5 className="px-1">{jobTitle}</h5>
 
-              <h2 className=" border-bottom border-primary">Contact</h2>
-              <div className="">
-              <h6>Phone</h6>
-              <p className="px-1">{phone}</p>
-              <h6 className="px-1">Social media:</h6>
-              <p className="px-1">{linkedin}</p>
-              <h6>Email</h6>
-              <p className="px-1">{email}</p>
+                <div className="mt-3">
+                  <h2 className=" border-bottom border-primary">Contact</h2>
+                  <div className="">
+                  <h6>Phone</h6>
+                  <p className="px-1">{phone}</p>
+                  <h6 className="px-1">Social media:</h6>
+                  <p className="px-1">{linkedin}</p>
+                  <h6>Email</h6>
+                  <p className="px-1">{email}</p>
+                </div>
               </div>
-            </div>
 
+            </div>
           </div>
-        
-          </div>
-          </div>
+        </div>
+
         <div className="col-6 mt-2 two px-3">
           <h2>Summery</h2>
           <span >{summery} </span>
-  
           <h2 className="mt-3">Experience</h2>
-            <p> work in {experience}: <br /> {post} position Start <br /> {`${startDate} to ${endDate}`} </p>
-        
+          <p> work in {experience}: <br /> {post} position Start <br /> {`${startDate} to ${endDate}`} </p>
           <h2 className="mt-4">Skills</h2>
-         
-          <i className="badge bg-success mx-1">{skills}</i>
-
-         {/* {[newSkill.map((sk,index) => <div className="badge bg-success mx-1" key={index}>{sk}</div>)]} */}
-
-
-       <h2 className="mt-4">Education</h2>
-         {university} at {faculty} in {degree} {`${startUni} - ${endUni}`}
+          {[skills.split(',').map((sk,index) => <div className="badge bg-success mx-1" key={index}>{sk}</div>)]}
+          <h2 className="mt-4">Education</h2>
+          {university} at {faculty} in {degree} {`${startUni} - ${endUni}`}
 
         </div>
 
       </div>
+      <button onClick={creatPdf} className={`btn btn-warning mx-4 mb-3 float-end ${downloadBtn}`}>Download PDF</button>
 
 
     </div>
   </div>
-  </div>
-
- 
+</div>
 </>
 
  )

@@ -11,16 +11,14 @@
 }
 
 .inputes{
-    
     width:100%;
-    height:100%;
+    height:100vh;
     display:flex;
     align-items: center;
     justify-content: space-between;
     padding:5px 50px 5px 20px;
     word-wrap: wrap;
     line-break:auto;
-    
 }
 .logo{
     width:100px;
@@ -72,24 +70,26 @@ user-select: none;
     border-left:10px solid black;
     padding-left:10px;
 }
-.pure-cv{
-    width:500px;
-    height:100%;
-    word-wrap: break-word;
-}
 
-input,textarea{
-   width:100%;
-   height:45px;
+.pure-cv{
+    width:595px;
+    height:842px;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+/* input,textarea{
+    width:100%;
+    height:45px;
    border-radius:7px;
    padding:5px;
-    
+   
 }
+
 input:focus{
    outline:black;
    border:3px solid skyblue;
    box-shadow:10px;
-}
+} */
 input[type=color]{
 width:50px;
 height:50px;
@@ -183,6 +183,14 @@ button.w-100:active{
     width:100%;
     height:100%;
 }
+.resume-levels{
+    width:100vw;
+    height:100vh;
+    padding:10px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+}
 .creatResume{
    width:100%;
    height:100%;
@@ -199,7 +207,7 @@ button.w-100:active{
 
 .templates{
     width:320px;
-     height:500px;
+    height:500px;
     margin:5px 5px 0px 5px;
     align-items: center;
     justify-content:center;
@@ -255,8 +263,7 @@ textarea{
     display:inline;
 }
 .prof2{
-    width:150px;
-    height:150px;
+   
     border-radius: 50%;
     border:2px solid rgb(103, 103, 156);
 }
@@ -665,4 +672,48 @@ ul li a:hover{
     transition: 0.3s 0.1s;
     width:55px;
     height:55px;
+}
+
+
+.inputBox{
+    width:250px;
+    position:relative;
+}
+
+.inputBox input,.inputBox textarea{
+   
+    width:100%;
+    padding:10px;
+    border:1px solid rgb(100, 97, 97);
+    background-color: #343a49;
+    border-radius: 5px;
+    outline:none;
+    color:white;
+    font-size:16px;
+}
+.inputBox label{
+    position:absolute;
+    left:10px;
+    top:2px;
+    padding:10px;
+    pointer-events: none;
+    font-size: 16px;
+    color: #343a49;
+    transition:all 0.3s;
+    z-index:-1;
+}
+.inputBox input:focus ~ label,.inputBox textarea:focus ~ label{
+    color:whitesmoke;
+    transform:translateX(5px) translateY(-7px);
+    font-size:14px;
+    padding:0 5px;
+    background-color: #343a49;
+    z-index:1;
+}
+
+.inputBox input:focus{
+    border:2px solid whitesmoke
+}
+.inputBox textarea:focus{
+    border:2px solid whitesmoke
 }

@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import CustomResume from './customResume';
 import bootstrap from '../node_modules/bootstrap/dist/css/bootstrap.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import  '@fortawesome/free-solid-svg-icons'
 
 import Home from './home'
 function App () {
