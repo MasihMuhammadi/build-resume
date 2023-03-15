@@ -92,12 +92,9 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setTitleFontColor(data.titleFontColor);
  setHeaderColor(data.headerColor)
  setNewLanguage_level(newLangLevel);
-
  setNewLanguage(newLang)
 
 }
-
-
 
 const showProf = (img) =>{
  setImage(img)
