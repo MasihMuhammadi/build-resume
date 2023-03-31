@@ -18,12 +18,21 @@ import Template5 from '../src/templates/Intern/template5'
 import Template6 from '../src/templates/Intern/template6'
 import InternTemplates from './templates/Intern/internTemplates';
 import MediumTemplates from './templates/medium/mediumTemplates';
+import ExpertTemplates from './templates/expert/expertTemplates';
+
 import M_Template1 from './templates/medium/m_template1';
 import M_Template2 from './templates/medium/m_template2';
 import M_Template3 from './templates/medium/m_template3';
 import M_Template4 from './templates/medium/m_template4';
 import M_Template5 from './templates/medium/m_template5';
 import M_Template6 from './templates/medium/m_template6';
+
+import E_Template1 from './templates/expert/e_template1';
+import E_Template2 from './templates/expert/e_template2';
+import E_Template3 from './templates/expert/e_template3';
+import E_Template4 from './templates/expert/e_template4';
+import E_Template5 from './templates/expert/e_template5';
+import E_Template6 from './templates/expert/e_template6';
 
 
 
@@ -99,8 +108,11 @@ return<>
             <Route path="creatResume" element={<CreatResume />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<Error />} />
+
             <Route path="/templates/internTemplates" element={<InternTemplates />} />
             <Route path="/templates/mediumTemplates" element={<MediumTemplates />} />
+            <Route path="/templates/expertTemplates" element={<ExpertTemplates />} />
+
 
             <Route path="/templates/internTemplates/template1" element={<Template1 />} />
             <Route path="/templates/internTemplates/template2" element={<Template2 />} />
@@ -117,7 +129,18 @@ return<>
             <Route path="/templates/mediumTemplates/m_template5" element={<M_Template5/>} />
             <Route path="/templates/mediumTemplates/m_template6" element={<M_Template6/>} />
 
+            <Route path="/templates/expertTemplates/e_template1" element={<E_Template1 />} />
+            <Route path="/templates/expertTemplates/e_template2" element={<E_Template2 />} />
+            <Route path="/templates/expertTemplates/e_template3" element={<E_Template3 />} />
+            <Route path="/templates/expertTemplates/e_template4" element={<E_Template4 />} />
+            <Route path="/templates/expertTemplates/e_template5" element={<E_Template5 />} />
+            <Route path="/templates/expertTemplates/e_template6" element={<E_Template6 />} />
 
+
+
+
+
+            
 
 
 

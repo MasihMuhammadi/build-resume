@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import MediumForms from "../medium/medium_forms";
 import {faAddressBook, faCogs, faEnvelope, faGraduationCap, faHistory, faInbox,faLanguage,faListAlt,faLocation,faPhone, faSkull, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Colores from "../colores";
 
 
 
@@ -55,6 +56,9 @@ const [interest,setInterest] = useState('');
 const [address,setAddress] = useState('');
 const [DoB,setDob]= useState('');
 const [downloadBtn,setDownloadBtn] = useState('d-none')
+const [showLiveCenter,setShowLiveCenter] = useState('row');
+const [style,setStyle] = useState('d-none col d-sm-block');
+const [inputes,setInputes] = useState('col-sm');
 
 
 const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
@@ -85,25 +89,30 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setInterest(data.interest);
  setLanguage(data.language);
  setLanguage_level(data.language_level);
- setBodyColor(data.bodyColor);
- setBodyFontColor(data.bodyFontColor);
- setHeaderColor(data.headerColor);
- setTitleFontColor(data.titleFontColor);
- setHeaderColor(data.headerColor)
  setNewLanguage_level(newLangLevel);
  setNewLanguage(newLang)
 
 }
 const showDownloadBtn =(showBtn) =>{
-  setDownloadBtn('d-inline');
+  setDownloadBtn('d-block');
+  setShowColores('d-block');
+   setInputes('')
+  setStyle('d-block ');
+ setShowLiveCenter('showLive');
 }
 
 
+const changeColor = (bodyColor,bodyFontColor,headerColor) =>{
+  setBodyColor(bodyColor);
+  setBodyFontColor(bodyFontColor);
+  setHeaderColor(headerColor);
 
-const showProf = (img) =>{
- setImage(img)
 }
 
+const showProf = (img,changeStyle) =>{
+  setImage(img)
+ 
+ }
 const creatPdf = () =>{
     let doc = new jsPDF('p','pt','a4');
     doc.html(document.querySelector('#full_CV'),{
@@ -117,21 +126,21 @@ const creatPdf = () =>{
 
 return(<>
 
-<div className="bg-dark row">
-  <div className='col'>
+<div className={`bg-dark ${showLiveCenter}`} >
+  <div className={`${inputes}`}>
      <MediumForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
   </div>
-    <div className={`col ${showLive}`}>
+    <div className={`${style}`}>
       <div className="template2  mx-2" >
         <div className="px-4 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
        
           <div className="row" >
 
             <div className="text-capitalize px-2 pt-5" >
-              <h6 className="pt-2 fs-3" >{name} {lastName}</h6>
+              <h6 className="pt-2 fs-4" >{name} {lastName}</h6>
               <p className="d-block" >{jobTitle}</p>
             </div>
-            <div className="col mt-2" style={{backgroundColor:`${bodyFontColor}`,color:`${bodyColor}`}}>
+            <div className="col mt-2 text-dark" style={{backgroundColor:`${bodyFontColor}`,color:`${bodyColor}`}}>
               <img src={image}   width="100" height="100"  />
                 <div className="">
                 <p className='fw-bold fs-6  mt-4' style={{color:`${bodyColor}`}}>
@@ -143,8 +152,8 @@ return(<>
 
               <div>
                 <p className='fw-bold fs-6 mt-3' style={{color:`${bodyColor}`}}><small className="mx-1 text-dark px-1 "><FontAwesomeIcon icon={faLanguage} /></small>Languages</p>
-                <ol>{language} / {language_level}</ol> 
-                {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
+                <ol style={{color:`${bodyColor}`}}>{language} / {language_level}</ol> 
+                {NewLanguage.map((lang,index) => <ol className="rome" style={{color:`${bodyColor}`}} key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
               </div>
 
               <div className="p-3" >
@@ -155,7 +164,6 @@ return(<>
           </div>
 
         <div className="col-7">
-        
           <div className="py-2 my-2" style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}} >
              <p className='fw-bold fs-6 px-3'><small className="mx-1 text-dark px-1" >
                 <FontAwesomeIcon icon={faAddressBook} />
@@ -197,6 +205,7 @@ return(<>
 
       </div>
     </div>
+            <div className={`${showColores}`}><Colores onChange={changeColor}/></div>
             <button onClick={creatPdf} className={`btn btn-warning ${downloadBtn} float-end`}>Download PDF</button>
   </div>
  </div>

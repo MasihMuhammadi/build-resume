@@ -3,15 +3,16 @@ import React,{useState,useEffect} from "react"
 import * as yup from 'yup'
 import { useFormik } from "formik";
 import jsPDF from "jspdf";
-import MediumForms from "./medium_forms";
+
 import {faAddressBook, faCogs, faEnvelope, faGraduationCap, faHistory, faInbox,faLanguage,faListAlt,faLocation,faPhone, faSkull, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Colores from "../colores";
+import ExpertForms from "./expertForms";
 
 
 
 
-const M_Template4 = () =>{
+const E_Template1 = () =>{
 
 
 const [name,setName] = useState('');
@@ -29,6 +30,7 @@ const [faculty,setFaculty] = useState('');
 const [degree,setDegree] = useState('');
 const [startUni,setStartUni] = useState('');
 const [endUni,setEndUni] = useState('');
+const [edu_description,setEdu_description] = useState('');
 const [skills,setSkills] = useState('');
 const [skillLevel,setSkillLevel] = useState();
 
@@ -81,6 +83,7 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setDegree(data.degree);
  setStartUni(data.startUni);
  setEndUni(data.endUni);
+ setEdu_description(data.edu_description)
  setSkills(data.skills);
  setSkillLevel(data.skillLevel);
  setNewSkill(newSkill);
@@ -134,22 +137,17 @@ return(<>
 
 <div className={`bg-dark ${showLiveCenter}`} >
   <div className={`${inputes}`}>
-      <MediumForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
+      <ExpertForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
     </div>
   <div className={`${style}`}>
     <div className="template2  mx-2" >
       <div className="px-0 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
         <div className="row" >    
          
-         <div className="col-5 px-3" style={{background:`${bodyFontColor}`,color:`${bodyColor}`}}>
-            <div className="text-capitalize text-center" >
-              <img src={image}  className="prof2" width="100" height="100"  />
-              <div className="py-2 my-2 text-light" >
-                <p className='fw-bold' style={{color:`${bodyColor}`}}><small className="mx-1 px-1" ></small> What's Up Guys</p>
-                <p className="" style={{color:`${bodyColor}`}}>{summery}</p>
-              </div>
+         <div className="col-4 px-3" style={{background:`${bodyFontColor}`,color:`${bodyColor}`}}>
+            <div className="text-capitalize mx-0 px-0 text-center" >
+              <img src={image}  className="" width="140" height="140"  />
             </div>
-        
 
           <div className="">
             <p className='fw-bold fs-6  text-center' style={{borderBottom:`1px solid ${headerColor}`}} >
@@ -159,19 +157,20 @@ return(<>
             <p style={{borderBottom:`1px solid ${headerColor}`,fontSize:'13px'}} ><FontAwesomeIcon className="mx-1" icon={faEnvelope} />{email}</p>
           </div> 
             
-           
-          <div className="">
-            <p className='fw-bold fs-6 text-center'  style={{borderBottom:`1px solid ${headerColor}`}} >
-              <small className="mx-1 px-1" style={{color:`${bodyColor}`}}><FontAwesomeIcon icon={faCogs} /></small>Skills</p>
-              <span className='mb-3 pb-3'>
-                <strong>{skills}</strong><div className="progress progress-bar" style={{width:`${skillLevel}%`,background:`${headerColor}`}}></div>
-                  <span>
-                    {NewSkill.map((lang,index) => <><strong className="rome" key={index}>{lang} 
-                    <div className=" progress progress-bar mb-2" 
-                    style={{width:`${NewSkillLevel[index]}%`,background:`${headerColor}`}} ></div></strong></>)}
-                  </span>
-              </span>
-          </div>
+          <div>
+              <p className='fw-bold mt-3 fs-6' style={{borderBottom:`1px solid ${headerColor}`}}>
+              <small className="mx-1 px-1" style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faLanguage} /></small>Skills</p>
+              <div><p>{skills}</p><p>{skillLevel}</p></div> 
+              {NewSkill.map((skill,index) => <div className="" key={index}><p>{skill}</p><p>{NewSkillLevel[index]}</p> </div>)}
+            </div>
+              
+
+            <div>
+              <p className='fw-bold mt-3 fs-6' style={{borderBottom:`1px solid ${headerColor}`}}>
+              <small className="mx-1 px-1" style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faLanguage} /></small>Languages</p>
+              <ol>{language} / {language_level}</ol> 
+              {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
+            </div>
               
         
 
@@ -181,39 +180,43 @@ return(<>
           <div className="p-3" style={{background:`${headerColor}`}}  >
             <h6 className="pt-2 fw-bold fs-5" style={{color:`${bodyColor}`}} >{name} {lastName}</h6>
             <small className="d-block" style={{color:`${bodyColor}`}}>{jobTitle}</small>
+            <p className="mt-2" style={{color:`${bodyColor}`}}>{summery}</p>
+
           </div>
 
           <div className="p-3" >
              <p className='fw-bold fs-6'  style={{color:`${headerColor}`}}>
-              <small className="mx-1 px-1" style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faGraduationCap} /></small>Education</p>
+                <small className="mx-1 px-1" style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faGraduationCap} /></small>Education</p>
                 <div className="row">
-                  <span className=' col-5 fw-bold'>{startUni} - {endUni}</span>
-                  <p className='ps-3 col-7'>{degree},{faculty}<br /> {university}</p>
+                  <span className='col-5 fw-bold'>{startUni} - {endUni}</span>
+                  <div className="ps-3 col">
+                    <p className=''>{degree},{faculty}<br /> {university}</p>
+                    <p>{edu_description}</p>
+                  </div>
                 </div>
           </div>
 
           <div className="p-3">
-            <p className='fw-bold fs-6 'style={{color:`${headerColor}`,borderBottom:`1px solid ${headerColor}`}}>
+            <p className='fw-bold fs-6 'style={{color:`${headerColor}`}}>
               <small className="mx-1 px-1  " style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faHistory} /></small>Experience</p>
                 <div className="row">
                   <small className=' col fw-bold' style={{color:`${bodyFontColor}`}}> {startDate} - {endDate}</small>
-                  <strong className='ps-3 col'>{post} in {experience} </strong>
-                  <p>{exp_description}</p>
+                  <div className="col">
+                      <span className='ps-3'>{post}<br /></span>
+                      <span className="ps-3 opacity-75">{experience}<br /><br /></span>
+                      <span className="">{exp_description}</span>
+                    
+                  </div>
                 </div>
           </div>
 
             <div className="p-3" >
-              <p className='fw-bold fs-6 ' style={{color:`${headerColor}`,borderBottom:`1px solid ${headerColor}`}}>
+              <p className='fw-bold fs-6 ' style={{color:`${headerColor}`}}>
               <small className="mx-1 px-1 " style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faThumbsUp} /></small>Interests</p>
               {[interest.split(',').map((int,ind) =><span className="mx-1 badge" style={{background:`${bodyFontColor}`,color:`${bodyColor}`}} key={ind}>{int}</span>)]}
             </div>
 
-            <div>
-              <p className='fw-bold mt-3 fs-6' style={{color:`${headerColor}`,borderBottom:`1px solid ${headerColor}`}}>
-              <small className="mx-1 px-1" style={{color:`${headerColor}`}}><FontAwesomeIcon icon={faLanguage} /></small>Languages</p>
-              <ol>{language} / {language_level}</ol> 
-              {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
-            </div>
+            
 
          </div>
         </div>
@@ -230,4 +233,4 @@ return(<>
 </>)
 }
 
-export default M_Template4;
+export default E_Template1;

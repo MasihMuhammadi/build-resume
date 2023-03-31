@@ -6,6 +6,7 @@ import jsPDF from "jspdf";
 import MediumForms from "../medium/medium_forms";
 import {faAddressBook, faCogs, faEnvelope, faGraduationCap, faHistory, faInbox,faLanguage,faListAlt,faLocation,faPhone, faSkull, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Colores from "../colores";
 
 
 
@@ -55,6 +56,9 @@ const [interest,setInterest] = useState('');
 const [address,setAddress] = useState('');
 const [DoB,setDob]= useState('');
 const [downloadBtn,setDownloadBtn] = useState('d-none');
+const [showLiveCenter,setShowLiveCenter] = useState('row');
+const [style,setStyle] = useState('d-none col d-sm-block');
+const [inputes,setInputes] = useState('col-sm');
 
 
 
@@ -86,21 +90,21 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setInterest(data.interest);
  setLanguage(data.language);
  setLanguage_level(data.language_level);
- setBodyColor(data.bodyColor);
- setBodyFontColor(data.bodyFontColor);
- setHeaderColor(data.headerColor);
- setTitleFontColor(data.titleFontColor);
- setHeaderColor(data.headerColor)
  setNewLanguage_level(newLangLevel);
-
  setNewLanguage(newLang)
 
 }
 
+const showProf = (img,changeStyle) =>{
+  setImage(img)
 
+ }
 
-const showProf = (img) =>{
- setImage(img)
+ const changeColor = (bodyColor,bodyFontColor,headerColor) =>{
+  setBodyColor(bodyColor);
+  setBodyFontColor(bodyFontColor);
+  setHeaderColor(headerColor);
+
 }
 
 const creatPdf = () =>{
@@ -114,23 +118,28 @@ const creatPdf = () =>{
     });
   };
 const showDownloadBtn =(showBtn) =>{
-  setDownloadBtn('d-inline');
+  setDownloadBtn('d-block');
+  setShowColores('d-block');
+  setInputes('')
+  setStyle('d-block ');
+ setShowLiveCenter('showLive');
 }
 return(<>
 
-<div className="bg-dark row">
-    <div className='col'>
+<div className={`bg-dark ${showLiveCenter}`} >
+  <div className={`${inputes}`}>
       <MediumForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
     </div>
-  <div className={`col ${showLive}`}>
+  <div className={`${style}`}>
     <div className="template2  mx-2" >
      <div className="pure-cv" id="full_CV" >
       <div className="row" >
         <div className="col mx-0 px-2 " style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>   
                 <div className="">
                     <img src={image}  className="w-100"  height="250"  />
-                     <p className='fw-bold fs-6 mt-4'>
-                      <small className="mx-1 text-dark px-1 " ></small>Contact Me</p>
+                      <p className='fw-bold fs-6 mt-4'>
+                        <small className="mx-1 text-dark px-1 " ></small>Contact Me
+                      </p>
                       <div className="px-4">
                         <strong>Adress</strong>
                         <p >{address}</p>
@@ -176,19 +185,19 @@ return(<>
 
         <div className="col-7 "style={{backgroundColor:`${bodyFontColor}`,color:`${headerColor}`}}>
           <div className="text-capitalize px-2 pt-5 border-bottom border-dark" >
-                <h6 className="pt-2 fs-3" style={{color:`${bodyColor}`}}>{name} {lastName}</h6>
+                <h4 className="pt-2" style={{color:`${bodyColor}`}}>{name} {lastName}</h4>
                 <p className="d-block text-center" >{jobTitle}</p>
           </div>
         
         
         <div className="py-2 my-2" >
           
-             <p className='fw-bold fs-6 text-center' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Summery</p>
+             <p className='fw-bold mx-1 fs-6 text-center' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Summery</p>
              <p className="px-3">{summery}</p>
         </div>
 
         <div className="py-2" >
-              <p className='fw-bold fs-6 text-center' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Education</p>
+              <p className='fw-bold fs-6 text-center mx-1' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Education</p>
                 <div className="row">
                     <p className='ps-3 col-7'>{degree},{faculty}<br /> {university}</p>
                     <span className=' col-5 fw-bold'>{startUni} - {endUni}</span>
@@ -197,7 +206,7 @@ return(<>
 
 
           <div className="py-2" >
-            <p className='fw-bold fs-6 text-center' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Experience</p>
+            <p className='fw-bold fs-6 text-center mx-1' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Experience</p>
               <div className="row">
                 <span className='ps-3 col'>{post} in {experience} </span>
                 <span className=' col fw-bold'>from {startDate} to {endDate}</span>
@@ -208,16 +217,17 @@ return(<>
             
 
           <div className="py-2" >
-            <p className='fw-bold fs-6 text-center' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Interests</p>
+            <p className='fw-bold fs-6 text-center mx-1' style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>Interests</p>
             {[interest.split(',').map((skill,ind) =><span style={{background:`${bodyColor}`,color:`${bodyFontColor}`}} 
             className="mx-1 badge"  key={ind}>{skill}</span>)]}
             
            </div>
 
-        </div>  
-              <button onClick={creatPdf}  className={`btn btn-warning ${downloadBtn} float-end`}>Download PDF</button>
        </div>
+        </div> 
      </div>
+              <div className={`${showColores}`}><Colores onChange={changeColor}/></div>
+              <button onClick={creatPdf}  className={`btn btn-warning ${downloadBtn} float-end`}>Download PDF</button>
     </div>
   </div>
 </div>

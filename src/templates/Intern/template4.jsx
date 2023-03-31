@@ -1,164 +1,239 @@
 
-  import React,{useState} from "react"
-  import * as yup from 'yup'
-  import { useFormik } from "formik";
-  import jsPDF from "jspdf";
-  import InternForms from "../Intern/internForms";
-
+import React,{useState,useEffect} from "react"
+import * as yup from 'yup'
+import { useFormik } from "formik";
+import jsPDF from "jspdf";
+import MediumForms from "../medium/medium_forms";
+import {faAddressBook, faCogs, faEnvelope, faGraduationCap, faHistory, faInbox,faLanguage,faListAlt,faLocation,faPhone, faSkull, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Colores from "../colores";
+import InternForms from './internForms'
 
 
 
 
 const Template4 = () =>{
+const [name,setName] = useState('');
+const [lastName,setLastName] = useState('');
+const [jobTitle,setJobTitle] = useState('');
+const [summery,setSummery] = useState('');
+const [experience,setExperience] = useState('');
+const [exp_description,setExp_description] = useState('');
 
-  const [name,setName] = useState('');
-  const [jobTitle,setJobTitle] = useState('');
-  const [summery,setSummery] = useState('');
-  const [experience,setExperience] = useState('');
-  const [post,setPost] = useState('');
-  const [startDate,setStartDate] = useState('');
-  const [endDate,setEndDate] = useState('');
-  const [university,setUniversity] = useState('');
-  const [faculty,setFaculty] = useState('');
-  const [degree,setDegree] = useState('');
-  const [startUni,setStartUni] = useState('');
-  const [endUni,setEndUni] = useState('');
-  const [skills,setSkills] = useState('');
-  const[phone,setPhone] = useState();
-  const[linkedin,setLinkedin] = useState();
-  const [email,setEmail] = useState();
-  const [lastName,setLastName]  = useState();
-  const [language,setLanguage] = useState('');
-  const [language_level,setLanguage_level] = useState('');
-  const [NewLanguage,setNewLanguage] = useState([]);
-  const [NewLanguage_level, setNewLanguage_level] = useState('');
-  const [bodyColor,setBodyColor] = useState('')
-  const [bodyFontColor,setBodyFontColor] = useState('')
-  const [titleFontColor,setTitleFontColor] = useState('');
-  const [headerColor,setHeaderColor] = useState('');
-  const [showColores,setShowColores] = useState('d-none');
-  const [image,setImage] = useState();
-  const [showLive,setShowLive] = useState('d-none d-lg-block');
-  const [project,setProject] = useState('');
-  const [interest,setInterest] = useState('');
-  const [address,setAddress] = useState('');
-  const [DoB,setDob]= useState('');
-  const [downloadBtn,setDownloadBtn] = useState('d-none')
- 
- 
- 
-  const showData =(data) =>{
-   setName(data.name);
-   setJobTitle(data.jobTitle);
-   setSummery(data.summery);
-   setExperience(data.experince);
-   setPost(data.post);
-   setStartDate(data.startDate);
-   setEndDate(data.endDate);
-   setUniversity(data.university);
-   setFaculty(data.faculty);
-   setDegree(data.degree);
-   setStartUni(data.startUni);
-   setEndUni(data.endUni);
-   setSkills(data.skills);
-   setPhone(data.phone);
-   setEmail(data.email);
-   setLinkedin(data.linkedin)
-   setProject(data.project);
-   setInterest(data.interest);
-   setLanguage(data.language);
-   setLanguage_level(data.language_level);
-   setBodyColor(data.bodyColor);
-   setBodyFontColor(data.bodyFontColor);
-   setHeaderColor(data.headerColor);
-   setTitleFontColor(data.titleFontColor);
- 
- 
-  }
- 
-  const showProf = (img) =>{
-   setImage(img)
- }
+const [post,setPost] = useState('');
+const [startDate,setStartDate] = useState('');
+const [endDate,setEndDate] = useState('');
+const [university,setUniversity] = useState('');
+const [faculty,setFaculty] = useState('');
+const [degree,setDegree] = useState('');
+const [startUni,setStartUni] = useState('');
+const [endUni,setEndUni] = useState('');
+const [skills,setSkills] = useState('');
+const [skillLevel,setSkillLevel] = useState();
 
- const creatPdf = () =>{
-  let doc = new jsPDF('p','pt','a4');
-  doc.html(document.querySelector('#full_CV'),{
-    callback:function(pdf){
-      let pageCount = doc.internal.getNumberOfPages();
-      pdf.deletePage(pageCount)
-      pdf.save('my Cv')
-    }
-  });
-};
+const [NewSkill,setNewSkill] = useState([]);
+const [NewSkillLevel,setNewSkillLevel] = useState([]);
 
- 
- const showDownloadBtn = (showBtn) =>{
-    setDownloadBtn('d-block')
- }
+const[phone,setPhone] = useState();
+const[linkedin,setLinkedin] = useState();
+const [email,setEmail] = useState();
+
+const [language,setLanguage] = useState('');
+const [language_level,setLanguage_level] = useState('');
+const [NewLanguage,setNewLanguage] = useState([]);
+const [NewLanguage_level, setNewLanguage_level] = useState('');
+
+const [bodyColor,setBodyColor] = useState('')
+const [bodyFontColor,setBodyFontColor] = useState('')
+const [titleFontColor,setTitleFontColor] = useState('');
+const [headerColor,setHeaderColor] = useState('');
+const [showColores,setShowColores] = useState('d-none');
+const [image,setImage] = useState();
+const [showLive,setShowLive] = useState('d-none d-lg-block');
+const [project,setProject] = useState('');
+const [interest,setInterest] = useState('');
+const [address,setAddress] = useState('');
+const [DoB,setDob]= useState('');
+const [downloadBtn,setDownloadBtn] = useState('d-none')
+const [showLiveCenter,setShowLiveCenter] = useState('row');
+const [style,setStyle] = useState('d-none col d-sm-block');
+const [inputes,setInputes] = useState('col-sm');
+const[option,setOption] = useState();
+
+
+const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
+
+ setName(data.name);
+ setLastName(data.lastName)
+ setJobTitle(data.jobTitle);
+ setSummery(data.summery);
+ setExperience(data.experince);
+ setExp_description(data.exp_description)
+ setPost(data.post);
+ setStartDate(data.startDate);
+ setEndDate(data.endDate);
+ setUniversity(data.university);
+ setFaculty(data.faculty);
+ setDegree(data.degree);
+ setStartUni(data.startUni);
+ setEndUni(data.endUni);
+ setSkills(data.skills);
+ setSkillLevel(data.skillLevel);
+ setNewSkill(newSkill);
+ setNewSkillLevel(newSkillLevel);
+ setPhone(data.phone);
+ setEmail(data.email);
+ setLinkedin(data.linkedin)
+ setAddress(data.address);
+ setProject(data.project);
+ setInterest(data.interests);
+ setLanguage(data.language);
+ setLanguage_level(data.language_level);
+ setNewLanguage_level(newLangLevel);
+ setNewLanguage(newLang)
+//  setOption(data.selectedOption);
+}
+
+
+const showDownloadBtn =(showBtn) =>{
+  setDownloadBtn('d-block');
+  setShowColores('d-block');
+   setInputes('')
+  setStyle('d-block ');
+ setShowLiveCenter('showLive');
+}
+
+
+const changeColor = (bodyColor,bodyFontColor,headerColor) =>{
+  setBodyColor(bodyColor);
+  setBodyFontColor(bodyFontColor);
+  setHeaderColor(headerColor);
+
+}
+
+
+
+const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        pdf.deletePage(pageCount)
+        pdf.save('my Cv')
+      }
+    });
+  };
 
 return(<>
 
-  <div className="bg-dark row">
-    <div className='col'>
-      <InternForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
-    </div>
-    <div className={`col ${showLive}`}>
+<div className={`bg-dark ${showLiveCenter}`} >
+  <div className={`${inputes}`}>
+     <InternForms onMouseDown={showDownloadBtn} onChange={showData} />
+  </div>
+    <div className={`${style}`}>
       <div className="template2  mx-2" >
-        <div className="row  pure-cv p-2" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
-          <div className="col-6 one" >
-           
-            <div className="  ps-2  pt-4">
-              <h5 className="text-uppercase ms-3" style={{color:`${titleFontColor}`}}>{name}</h5>
-              <h3 className="mt-1 pb-3 ms-3  text-uppercase"  style={{color:`${titleFontColor}`}}>{lastName}</h3>
+        <div className="px-4 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`,fontSize:"13px", color:`${bodyFontColor}`}}>
+       
+          <div className="row" >
+
+            <div className="col mt-2" style={{backgroundColor:`${bodyFontColor}`,color:`${bodyColor}`}}>
+              
+                  <div className="mt-5">
+                    <p className='fw-bold fs-6  mt-4' style={{color:`${bodyColor}`}}>
+                    <small className="mx-1 text-dark px-1 " ></small>Contact Me</p>
+                    <p className="" style={{color:`${bodyColor}`}}>{address}</p>
+                    <p className="" style={{color:`${bodyColor}`}}>{phone}</p>
+                    <p  style={{color:`${bodyColor}`,fontSize:'12px' }}>{email}</p> 
+                  </div>  
+                  <div>
+                    <p className='fw-bold fs-6 mt-3' style={{color:`${bodyColor}`}}>Languages</p>
+                    <ol>{language} / {language_level}</ol> 
+                    {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
+                  </div>
+
+
+                  <div className="p-2">
+                    <p className='fw-bold text-capitalize fs-6 ' >Interest</p>
+                    {[interest.split(',').map((int,ind) =><li className="mx-1 text-capitalize" 
+                    style={{background:`${bodyFontColor}`,color:`${bodyColor}`}} key={ind}>{int}</li>)]}
+                  </div>
+                    
+
+                  
+          </div>
+
+        <div className="col-8">
+        
+          <div className="py-2 my-2" style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}} >
+            <div className="text-capitalize px-2 pt-5" >
+                <h6 className="pt-2 fs-5" >{name} {lastName}</h6>
+                <p className="d-block" >{jobTitle}</p>
             </div>
             
-            <div className="title-line mt-4" style={{backgroundColor:`${titleFontColor}`}}></div>
-              <p className="text-end me-5 mt-3" style={{color:`${titleFontColor}`}}>Name</p>
-              <p className="text-end d-block me-5" style={{color:`${titleFontColor}`}}>Email</p>
-              <p className="text-end me-5" style={{color:`${titleFontColor}`}}>DOB</p>
-              <p className="text-end me-5" style={{color:`${titleFontColor}`}}>Protfolio</p>
+          </div>
 
-              <div className="title-line mt-5" style={{backgroundColor:`${titleFontColor}`}}></div>
-              <p className="mt-3 text-center ms-3" style={{color:`${titleFontColor}`}}>{startDate} - {endDate}</p>
 
-              <div className="title-line mt-5" style={{backgroundColor:`${titleFontColor}`}}></div>
-              <p className="mt-3 text-center ms-5" style={{color:`${titleFontColor}`}}>{startUni} - {endUni}</p>
 
-              <div className="title-line mt-5" style={{backgroundColor:`${titleFontColor}`}}></div>
-              <div className="title-line mt-5"></div>
-
-            </div>
-            <div className="col-6 mt-2 two px-3">
-              <img src={image} className="prof4 mt-3 ms-5" width="150" height="200"  />
-              <h4 className="mt-4" style={{color:`${titleFontColor}`}}>Personal </h4>
+          <div className="content" style={{borderLeft:`2px dashed ${bodyFontColor}`}}>
+            <div className="boxTwo" >
+                <div>
+                  <p className='fw-bold fs-6 'style={{fontColor:`bodyFontColor`}}>Summery</p>
+                  <p>{summery}</p>
+                  
+                </div>
               
-              <div className="">
-                <p className="px-1">{name}</p>
-                <p className="px-1 "> {email}</p>
-                <p className="px-1"> {DoB}</p>
-                <p className="px-1 ">{linkedin}</p>
-              </div>
+            </div>      
+          </div>
         
-              <h4 className="mt-4 " style={{color: titleFontColor}}>Experience</h4>
-              {experience} Componey in {post} Position
-              
-              <h4 className="mt-2 " style={{color:`${titleFontColor}`}}>Education</h4>
-              {university} at {faculty} in {degree} 
+          <div className="content" style={{borderLeft:`2px dashed ${bodyFontColor}`}}>
+            <div className="boxTwo ">
+              <div className="row">
+                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Experience</p>
+                  <span className=' col fw-bold'> {startDate} / {endDate}</span>
+                  <span className='ps-3 col'>{post} in {experience} </span>
+                  <p className="mt-3">{exp_description}</p>
+              </div>
+            </div>      
+          </div>
 
-              <h4 className="mt-3" style={{color:`${titleFontColor}`}}>Language</h4>
-                <ol>{language} / {language_level}</ol> 
-                {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
+          <div className="content" style={{borderLeft:`2px dashed ${bodyFontColor}`}}>
+            <div className="boxTwo ">
+              <div className="row">
+                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Education</p>
+                  <span className=' col fw-bold'> {startUni} - {endUni}</span>
+                  <span className='ps-3 col'>{degree} , {faculty} 
+                  <p>{university}</p>
+                  </span>
+              </div>
+            </div>      
+          </div>
 
-              <h4 className="" style={{color:`${titleFontColor}`}}>Skills</h4>
-                {[skills.split(',').map((skill,ind) =><span className="mx-1 badge bg-primary" key={ind}>{skill}</span>)]} 
-            </div>
+          <div className="content" style={{borderLeft:`2px dashed ${bodyFontColor}`}}>
+            <div className="boxTwo " style={{color:`${bodyFontColor}`}}>           
+              <div>
+                <p className='fw-bold fs-6 ' >Skills</p>   
+                  <div className="p-3" >
+                    <span className=''>
+                      {[skills.split(',').map((skill,ind) =><span className="mx-1  badge p-2" style={{background:`${headerColor}`,color:`${bodyColor}`}} key={ind}>{skill}</span>)]} 
+                    </span>
+                  </div> 
+              </div>
+          </div>
         </div>
-              <button onClick={creatPdf} className={`btn btn-warning mx-4 mb-3 float-end ${downloadBtn}`}>Download PDF</button>
+          
+        </div>
       </div>
     </div>
+            <div className={`${showColores}`}><Colores onChange={changeColor}/></div>
+            <button onClick={creatPdf} className={`btn btn-warning ${downloadBtn} float-end`}>Download PDF</button>
   </div>
+ </div>
+</div>
 
-  </>)
+
+
+
+</>)
 }
 
 export default Template4;

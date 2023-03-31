@@ -7,7 +7,7 @@ import jsPDF from "jspdf";
 
 
 
-const Inputes = (props) =>{
+const InternForms = (props) =>{
 
 
 let alphabet = /^[A-za-z]+$/;
@@ -48,10 +48,12 @@ let [disabled, setDisabled] = useState('disabled')
 
 
 const [language_level,setLanguage_level] = useState('');
-const [NewLanguage_level,setNewLanguage_level] = useState('');
+const [NewLanguage_level,setNewLanguage_level] = useState([]);
 const [NewLanguage,setNewLanguage]  = useState([]);
 const [DoB,setDoB] = useState('');
 let [image,setImage] = useState();
+const [skills,setSkills] = useState([]);
+const [NewSkill,setNewSkill] = useState([]);
 
 
 
@@ -65,24 +67,14 @@ const [partFour,setPartFour] = useState('d-none');
 const [partFive,setPartFive] = useState('d-none');
 const [partSex,setPartSex] = useState('d-none');
 const [downloadBtn,setDownloadBtn] = useState('d-none')
+const [style,setStyle] = useState('d-none d-sm-block ')
 
-const [showLive,setShowLive] = useState('d-none d-lg-block');
-const [showCenter,setShowCenter] = useState('');
-const [showColores,setShowColores] = useState('d-none')
 
-const handleProf = (e) =>{
-  setImage(e.target.files[0]);
-}
 
-const creatPdf = () =>{
-  let doc = new jsPDF('p','pt','a4');
-  doc.html(document.querySelector('#full_CV'),{
-    callback:function(pdf){
-      let pageCount = doc.internal.getNumberOfPages();
-      pdf.save('my Cv')
-    }
-  });
-};
+// const handleProf = (e) =>{
+//   setImage(e.target.files[0]);
+// }
+
 
 const showPartOne = (event) =>{
   setPartOne('partOne');
@@ -160,35 +152,46 @@ const showResult  = () =>{
   setPartFour('d-none');
   setPartFive('d-none');
   setPartSex('d-none');
-  setShowLive('d-block ');
-  setShowColores('d-block')
-  setShowCenter('showLive');
-  setDownloadBtn('d-block')
+  setDownloadBtn('d-block');
   props.onMouseDown(downloadBtn)
-}
-
-
-const handleNew = () => {
-  let newInput = [...NewLanguage,[]];
-  let newLevel = [...NewLanguage_level,[]];
-  setNewLanguage_level(newLevel)
-  setNewLanguage(newInput);
-
-}
-
-const handleAdd = (event,index) =>{
-  let inputData = [...NewLanguage]; 
-   inputData[index] = event.target.value; 
-   setNewLanguage(inputData);
+  props.onMouseDown(style);
 
 }
 
 
-const handleAddLevel = (event,index) =>{
-  let levelData = [...NewLanguage_level]; 
-   levelData[index] = event.target.value; 
-   setNewLanguage_level(levelData);
 
+
+const handleAdd = () =>{
+  const newLangData = [...NewLanguage,[]];
+  setNewLanguage(newLangData);
+
+}
+const inputValue = (e,id) =>{
+  const inputData = [...NewLanguage]
+  inputData[id] = e.target.value;
+  setNewLanguage(inputData);
+ }
+
+ const handleNewLevel = (e,id) =>{
+  const levelData = [...NewLanguage_level]
+  levelData[id] = e.target.value;
+  setNewLanguage_level(levelData);
+
+ }
+
+ const handleDelete = (id) =>{
+  const deleteLanguage = [...NewLanguage];
+  const deleteLanguageLevel = [...NewLanguage_level];
+
+    deleteLanguage.splice(id,1)
+    deleteLanguageLevel.splice(id,1)
+ 
+
+    setNewLanguage(deleteLanguage)
+    setNewLanguage_level(deleteLanguageLevel);
+
+
+ 
 }
 
 //////////////// VALIDATION 
@@ -222,6 +225,7 @@ let{handleChange, errors,values} = useFormik({
   project:'',
   // partFour
   skills:'',
+
   language:'',
   NewLanguage:'',
   NewLanguage_level:'',
@@ -248,7 +252,7 @@ let{handleChange, errors,values} = useFormik({
 // (URL.createObjectURL(values.image))
 
 useEffect(() =>{
-  props.onChange( values);
+  props.onChange( values,NewLanguage,NewLanguage_level);
 
 })
 
@@ -297,9 +301,10 @@ if((errors.name,errors.jobTitle , errors.summery) == null ){
 
 return(<>
     <div className=''>
-      <div className={`${showCenter} inputes bg-dark pt-5 `}>
+      <div className={` inputes bg-dark pt-5 `}>
         <div className="">
           <div className={`mx-2 ${partOne} text-light`}>
+
 
             <div className="inputBox">
               <input  type="text" autoComplete="off" id="name" value={values.name} onChange={handleChange} placeholder="enter your name" required />  
@@ -308,7 +313,12 @@ return(<>
             </div>
 
             <div className="inputBox mt-3">
-              <input type="text" id="jobTitle" value={values.jobTitle} onChange={handleChange} placeholder="enter your  jobTitle" /> 
+              <input  type="text" autoComplete="off" id="lastName" value={values.lastName} onChange={handleChange} placeholder="enter your name" required />  
+              <label  htmlFor="lastName">LastNme</label>
+              <small className=" ">{errors.lastName}<br /></small>
+            </div>
+            <div className="inputBox mt-3">
+              <input type="text" id="jobTitle" value={values.jobTitle} autoComplete="off" onChange={handleChange} placeholder="enter your  jobTitle" /> 
               <label htmlFor="jobTitle">Job Title</label> 
               <small>{errors.jobTitle}<br /></small>
             </div>
@@ -319,25 +329,25 @@ return(<>
               <small className=" ">{errors.summery}<br /></small>
             </div>
 
-            <input type="file" id='image' multiple={false} onChange={handleProf}  /> <br />
+            
             <div onClick={showPartTwo}  className={`btn btn-sm btn-outline-light ${isValid == false ? 'disabled' : ''}`}>save and continue </div>
           </div>
 
             <div className={`mx-2 ${partTwo}`}>
               <div className="inputBox mt-3">
-              <input  type="text" id="experince"  value={values.experince} onChange={handleChange} placeholder="enter company name" required />
+              <input  type="text" id="experince" autoComplete="off" value={values.experince} onChange={handleChange} placeholder="enter company name" required />
               <label htmlFor="experince">Experince</label> 
               <small className=" ">{errors.experince}<br /></small>
             </div>
 
             <div className="mt-3 inputBox">
-              <input type="text"   id="post"  value={values.post} onChange={handleChange}  placeholder="enter your position" /> 
+              <input type="text"   id="post" autoComplete="off" value={values.post} onChange={handleChange}  placeholder="enter your position" /> 
               <label htmlFor="post">Your Post</label> 
               { <small className=" ">{errors.post}<br /></small>}
             </div>
         
             <div className="inputBox mt-3">
-              <input type="month"  id="startDate"   value={values.startDate} onChange={handleChange}  placeholder="start Date"/> 
+              <input type="month"  id="startDate"  autoComplete="off" value={values.startDate} onChange={handleChange}  placeholder="start Date"/> 
               <label htmlFor="startDate">Start Date:</label>
               { <small className=" ">{errors.startDate}<br /></small>}
             </div>
@@ -400,35 +410,54 @@ return(<>
       </div>
 
       <div className={`mx-2 ${partFive}`}>
-    
-      <div className="inputBox mt-3">  
-        <input autoComplete="off" type="text" className="d-inline"  id="language" value={values.language} placeholder="e.g English" onChange={handleChange} /> 
-        <label htmlFor="language">Language</label>  
-        {errors.language &&  <small className=" ">{errors.language}<br /></small>}
+
+      <div className="inputBox mt-3">
+        <input autoComplete="off" type="text" name="interests" className="d-inline"  id="interests" value={values.interests} placeholder="Interest e.g Teaching" onChange={handleChange} /> <br />
+        <label htmlFor="interests">interests</label>
+        {errors.interests &&  <small className=" ">{errors.interests}<br /></small>}
       </div>
-      
-      <select id="language_level" name="language_level"  onChange={handleChange} className="mt-2 border rounded">
-        <option>Fluent</option>
-        <option>Native</option>
-        <option>Good</option>
-        <option>Not bad</option>
-        </select> <br />
+    
+      <div className="inputBox mt-3">
+      <input type="text" className="d-inline" autoComplete="off" id="language" value={values.language} placeholder="e.g English" onChange={handleChange} /> <br />
+      <label htmlFor="language">Language</label> 
+      {errors.language &&  <small className=" ">{errors.language}<br /></small>}
+    </div>
 
-        {NewLanguage.map((value,index) => {
-          return <div className="inputBox mt-3" key={index} ><label>language</label><input type="text" onChange={e => handleAdd(e,index) }/>
-                    <select id="language_level" name="language_level"  onChange={e =>handleAddLevel(e,index)} className="mt-2 border rounded">
-                      <option>Fluent</option>
-                      <option>Native</option>
-                      <option>Good</option>
-                      <option>Not bad</option>
-                    </select> <br />
-                  </div>
+    <select id="language_level" value={values.language_level} name="language_level"   onChange={handleChange} className="mt-2 border rounded">
+          <option  disabled> select a Level</option>
+          <option>Fluent</option>
+          <option>Native</option>
+          <option>Good</option>
+          <option>Not bad</option>
+      </select>
+              <br />
+              <br />
 
+        {NewLanguage.map((e,id) =>{
+          return <div className="inputBox" key={id}>
+          <div className="d-flex align-items-center">
+            <input className="" type="text" onChange={e =>inputValue(e,id)}/>
+            <img src="/trash.ico" className="text-center"  onClick={() => handleDelete(id)} />
+
+          </div>
+
+            <select id="language_level" value={values.language_level} name="language_level"   onChange={e => handleNewLevel(e,id)} className="mt-2 border rounded">
+              <option  disabled> select a Level</option>
+                <option>Fluent</option>
+                <option>Native</option>
+                <option>Good</option>
+                <option>Not bad</option>
+            </select> 
+         
+            <br />
+            <br />
+          </div>
         })}
 
-{/* <button className="add-btn"  >Add Inputs</button> */}
 
-        <button className="btn btn-sm btn-outline-light" onClick={handleNew}>+ </button><br /><br />
+
+        <div className="btn btn-light btn-sm my-1" onClick={handleAdd}>+</div> <br />
+
         <div onClick={showPartFour} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onClick={showPartSex}  className={`btn btn-sm btn-outline-light ${isValid_5 == false ? 'disabled'  : ''}`}>save and Continue </div>
       
@@ -448,24 +477,17 @@ return(<>
       </div>
   
       <div className="inputBox mt-3">
-          <input type="text" autoComplete="off"  id="linkedin"  value={values.linkedin} onChange={handleChange}  placeholder=" your Protfolio Url" />
-          <label htmlFor="linkedin">Website</label>  <br />
-          <small className=" ">{errors.linkedin}<br /></small>
+          <input type="text" autoComplete="off"  id="address"  value={values.address} onChange={handleChange}  placeholder=" your Address" />
+          <label htmlFor="address">Adress</label>  <br />
+          <small className=" ">{errors.address}<br /></small>
       </div>
         <div onClick={showPartFive} className="btn btn-sm btn-outline-light me-5" >Go To Back</div>  
         <div onMouseDown={showResult}  className={`btn btn-sm btn-outline-light ${isValid_6 == false ? 'disabled'  : ''}`}>save and Show </div>
     </div>
   </div> 
-
-    <div className={showColores}>
-      <input className="color" id="bodyColor" type="color" value={values.bodyColor} onChange={handleChange}/>
-      <input className="color" id="bodyFontColor" type="color" value={values.bodyFontColor} onChange={handleChange}/>
-      <input className="color" id="headerColor" type="color" value={values.headerColor} onChange={handleChange}/>  
-    </div> 
-
   </div>
 </div>
 </>)
 }
 
-export default Inputes;
+export default InternForms;

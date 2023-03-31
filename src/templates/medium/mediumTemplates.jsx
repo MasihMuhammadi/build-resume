@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MediumTemplates = () =>{
     return(<>
     <div className="templates-page pt-5 bg-dark align-items-center justify-content-center">
-
+     
     <Link to="m_template1" className=""> 
          <img src="/m_template1.png" className="templates"/>
     </Link>

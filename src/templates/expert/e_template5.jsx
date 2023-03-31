@@ -7,12 +7,12 @@ import MediumForms from "../medium/medium_forms";
 import {faAddressBook, faCogs, faEnvelope, faGraduationCap, faHistory, faInbox,faLanguage,faListAlt,faLocation,faPhone, faSkull, faThumbsUp} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Colores from "../colores";
+import ExpertForms from "./expertForms";
 
 
 
 
-const M_Template1 = () =>{
-
+const E_Template5 = () =>{
 
 const [name,setName] = useState('');
 const [lastName,setLastName] = useState('');
@@ -29,7 +29,6 @@ const [faculty,setFaculty] = useState('');
 const [degree,setDegree] = useState('');
 const [startUni,setStartUni] = useState('');
 const [endUni,setEndUni] = useState('');
-const [edu_description,setEdu_Description] = useState('');
 const [skills,setSkills] = useState('');
 const [skillLevel,setSkillLevel] = useState();
 
@@ -60,6 +59,7 @@ const [downloadBtn,setDownloadBtn] = useState('d-none')
 const [showLiveCenter,setShowLiveCenter] = useState('row');
 const [style,setStyle] = useState('d-none col d-sm-block');
 const [inputes,setInputes] = useState('col-sm');
+const[option,setOption] = useState();
 
 
 const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
@@ -78,7 +78,6 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setDegree(data.degree);
  setStartUni(data.startUni);
  setEndUni(data.endUni);
- setEdu_Description(data.edu_description)
  setSkills(data.skills);
  setSkillLevel(data.skillLevel);
  setNewSkill(newSkill);
@@ -93,8 +92,10 @@ const showData =(data,newLang,newLangLevel,newSkill,newSkillLevel) =>{
  setLanguage_level(data.language_level);
  setNewLanguage_level(newLangLevel);
  setNewLanguage(newLang)
-
+//  setOption(data.selectedOption);
 }
+
+
 const showDownloadBtn =(showBtn) =>{
   setDownloadBtn('d-block');
   setShowColores('d-block');
@@ -111,10 +112,11 @@ const changeColor = (bodyColor,bodyFontColor,headerColor) =>{
 
 }
 
-const showProf = (img,changeStyle) =>{
-  setImage(img)
- 
+const showProf = (img) =>{
+  setImage(img);
  }
+
+
 const creatPdf = () =>{
     let doc = new jsPDF('p','pt','a4');
     doc.html(document.querySelector('#full_CV'),{
@@ -130,70 +132,29 @@ return(<>
 
 <div className={`bg-dark ${showLiveCenter}`} >
   <div className={`${inputes}`}>
-     <MediumForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
+     <ExpertForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
   </div>
     <div className={`${style}`}>
       <div className="template2  mx-2" >
-        <div className="px-4 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
+        <div className="px-4 pure-cv" id="full_CV" style={{backgroundColor:`${bodyColor}`,fontSize:"13px", color:`${bodyFontColor}`}}>
        
           <div className="row" >
 
-            <div className="col-8">
-
-              <div className="text-capitalize text-center mx-0 pt-2" style={{background:`${headerColor}`}}>
-                <h6 className="pt-2 fs-5 " style={{borderBottom:`1px solid ${bodyFontColor}`}} >{name} {lastName}</h6>
-                <p className="d-block" >{jobTitle}</p>
-              </div>
-
-              <div className="py-2 mt-4 my-2 rounded" style={{backgroundColor:`${headerColor}`,color:`${bodyFontColor}`}} >
-                <p className='fw-bold fs-6 px-3'>Summery</p>
-                <p className="px-3">{summery}</p>
-              </div>
-
-              <div className="p-3 mt-3 rounded" style={{backgroundColor:`${headerColor}`}}>
-                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Experience</p>
-                  <div className="row">
-                      <span className='ps-3 col'>{post} in {experience} </span>
-                      <span className=' col fw-bold'>from {startDate} to {endDate}</span>
-                      <p>{exp_description}</p>
-                  </div>
-              </div>
-
-              <div className="p-3 mt-3 rounded" style={{backgroundColor:`${headerColor}`}}>
-                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Education</p>
+            <div className="col mt-2" style={{backgroundColor:`${bodyFontColor}`,color:`${bodyColor}`}}>
+              <img src={image}  className="bg-light d-block rounded-circle" width="130" height="130"  />
                   <div className="">
-                      <p className='ps-3'>{degree} of {faculty} / 
-                      <span className='fw-bold'>{startUni} - {endUni}</span></p>
-                      <span>university of {university}</span>
-                      <p>{edu_description}</p>
-                  </div>
-              </div>
-            </div>
-            <div className="col mt-2 text-dark" style={{backgroundColor:`${bodyFontColor}`,color:`${bodyColor}`}}>
-              
-              <img src={image} className="text-center rounded-circle"  width="120" height="120"  />
-                <div className="">
-                  <p className='fw-bold fs-6  mt-4' style={{color:`${bodyColor}`}}>
-                  <small className="mx-1 text-dark px-1 " ></small>Contact Me</p>
-                  <p className="" style={{color:`${bodyColor}`}}>{address}</p>
-                  <p className="" style={{color:`${bodyColor}`}}>{phone}</p>
-                  <small  style={{color:`${bodyColor}`,fontSize:'13px' }}>{email}</small> 
-                </div> 
-            <div>
-            <div className="p-3" >
-              <p className='fw-bold fs-6' style={{color:`${bodyColor}`}}>Skills</p>
-                <span className='mb-2'>
-                  <div className="w-75 mb-2"><strong style={{color:`${bodyColor}`}}>{skills}</strong><div className="progress progress-bar" style={{background:`${headerColor}`,color:`${bodyFontColor}`,width:`${skillLevel}%`}}>{skillLevel}</div></div>
-                    <span className="w75">
-                      {NewSkill.map((lang,index) => <div className="mb-2 w-75"><strong className="" style={{color:`${bodyColor}`}} key={index}>{lang} 
-                      <div className=" progress progress-bar" 
-                      style={{width:`${NewSkillLevel[index]}%`,background:`${headerColor}`,color:`${bodyFontColor}`}} >{NewSkillLevel[index]}</div></strong></div>)}
-                    </span>
-                </span>
-            </div>
+                    <p className='fw-bold fs-6  mt-4' style={{color:`${bodyColor}`}}>
+                    <small className="mx-1 text-dark px-1 " ></small>Contact Me</p>
+                    <p className="" style={{color:`${bodyColor}`}}>{address}</p>
+                    <p className="" style={{color:`${bodyColor}`}}>{phone}</p>
+                    <p  style={{color:`${bodyColor}`,fontSize:'12px' }}>{email}</p> 
+                  </div>  
+                  
+
+              <div>
                 <p className='fw-bold fs-6 mt-3' style={{color:`${bodyColor}`}}>Languages</p>
-                <ol style={{color:`${bodyColor}`}}>{language} / {language_level}</ol> 
-                {NewLanguage.map((lang,index) => <ol className="rome" style={{color:`${bodyColor}`}} key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
+                <ol>{language} / {language_level}</ol> 
+                {NewLanguage.map((lang,index) => <ol className="rome" key={index}>{lang} / {NewLanguage_level[index]}</ol>)}
               </div>
 
               <div className="p-3" >
@@ -203,8 +164,67 @@ return(<>
 
           </div>
 
-       
+        <div className="col-8">
+        
+          <div className="py-2 my-2" style={{backgroundColor:`${bodyColor}`,color:`${bodyFontColor}`}} >
+            <div className="text-capitalize px-2 pt-5" >
+                <h6 className="pt-2 fs-5" >{name} {lastName}</h6>
+                <p className="d-block" >{jobTitle}</p>
+            </div>
+            
+          </div>
 
+
+
+          <div className="content" style={{borderLeft:`2px solid ${bodyFontColor}`}}>
+            <div className="box" >
+             
+                <p className='fw-bold fs-6 'style={{fontColor:`bodyFontColor`}}>Summery</p>
+                <p>{summery}</p>
+              
+            </div>      
+          </div>
+        
+          <div className="content" style={{borderLeft:`2px solid ${bodyFontColor}`}}>
+            <div className="box ">
+              <div className="row">
+                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Experience</p>
+                  <span className='ps-3 col'>{post} in {experience} </span>
+                  <span className=' col fw-bold'>from {startDate} to {endDate}</span>
+                  <p className="mt-3">{exp_description}</p>
+              </div>
+            </div>      
+          </div>
+
+          <div className="content" style={{borderLeft:`2px solid ${bodyFontColor}`}}>
+            <div className="box ">
+              <div className="row">
+                <p className='fw-bold fs-6 ' style={{color:`${bodyFontColor}`}}>Education</p>
+                  <span className='ps-3 col'>{degree} , {faculty} </span>
+                  <span className=' col fw-bold'> {startUni} - {endUni}</span>
+                  <p>{university}</p>
+              </div>
+            </div>      
+          </div>
+
+          <div className="content" style={{borderLeft:`2px solid ${bodyFontColor}`}}>
+            <div className="box" style={{color:`${bodyFontColor}`}}>
+           
+              <p className='fw-bold fs-6 '>Skills</p>
+                <span className=''>
+                  <div className=""><strong>{skills}</strong><div style={{fontSize:"24px"}}>{skillLevel}</div></div>
+                    <span className="w-50">
+                      {NewSkill.map((lang,index) => <div className=""><strong className="rome" key={index}>{lang} 
+                      <div style={{fontSize:'30px'}}>{NewSkillLevel[index]}</div></strong></div>)}
+                    </span>
+                </span>
+          </div>
+          
+        </div>
+
+
+          
+        </div>
       </div>
     </div>
             <div className={`${showColores}`}><Colores onChange={changeColor}/></div>
@@ -219,4 +239,4 @@ return(<>
 </>)
 }
 
-export default M_Template1;
+export default E_Template5;

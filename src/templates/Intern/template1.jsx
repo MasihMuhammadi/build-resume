@@ -1,152 +1,217 @@
 
-  import React,{useState} from "react"
-  import * as yup from 'yup'
-  import { setIn, useFormik } from "formik";
-  import axios from "axios";
-  import jsPDF from "jspdf";
-  import InternForms from "../Intern/internForms";
+import React,{useState} from "react"
+import * as yup from 'yup'
+import { useFormik } from "formik";
+import jsPDF from "jspdf";
+import MediumForms from "../medium/medium_forms";
+import Colores from "../colores";
+import Inputes from "./internForms";
+import InternForms from "./internForms";
 
-  
-  
-  
-  const Template1 = () =>{
-  
- const [name,setName] = useState('');
- const [jobTitle,setJobTitle] = useState('');
- const [summery,setSummery] = useState('');
- const [experience,setExperience] = useState('');
- const [post,setPost] = useState('');
- const [startDate,setStartDate] = useState('');
- const [endDate,setEndDate] = useState('');
- const [university,setUniversity] = useState('');
- const [faculty,setFaculty] = useState('');
- const [degree,setDegree] = useState('');
- const [startUni,setStartUni] = useState('');
- const [endUni,setEndUni] = useState('');
- const [skills,setSkills] = useState('');
- const[phone,setPhone] = useState();
- const[linkedin,setLinkedin] = useState();
+
+
+
+
+const Template1 = () =>{
+
+
+const [name,setName] = useState('');
+const [lastName,setLastName] = useState('');
+const [jobTitle,setJobTitle] = useState('');
+const [summery,setSummery] = useState('');
+const [experience,setExperience] = useState('');
+const [exp_description,setExp_Description] = useState('')
+const [post,setPost] = useState('');
+const [startDate,setStartDate] = useState('');
+const [endDate,setEndDate] = useState('');
+const [university,setUniversity] = useState('');
+const [faculty,setFaculty] = useState('');
+const [degree,setDegree] = useState('');
+const [startUni,setStartUni] = useState('');
+const [endUni,setEndUni] = useState('');
+const [skills,setSkills] = useState('');
+const[phone,setPhone] = useState();
+const[linkedin,setLinkedin] = useState();
 const [email,setEmail] = useState();
-const [lastName,setLastName]  = useState();
- const [Project,setProject] = useState('');
- const [interest,setInterest] = useState('');
- const [language,setLanguage] = useState('');
- const [language_level,setLanguage_level] = useState('');
- const [NewLanguage,setNewLanguage] = useState([]);
- const [NewLanguage_level, setNewLanguage_level] = useState('');
- const [bodyColor,setBodyColor] = useState('')
- const [bodyFontColor,setBodyFontColor] = useState('')
- const [headerColor,setHeaderColor] = useState('');
- const [showColores,setShowColores] = useState('d-none');
- const [image,setImage] = useState();
- const [downloadBtn,setDownloadBtn] = useState('d-none')
+const [language,setLanguage] = useState('');
+const [language_level,setLanguage_level] = useState('');
+const [NewLanguage,setNewLanguage] = useState([]);
+const [NewLanguage_level, setNewLanguage_level] = useState('');
+const [bodyColor,setBodyColor] = useState('')
+const [bodyFontColor,setBodyFontColor] = useState('')
+const [titleFontColor,setTitleFontColor] = useState('');
+const [headerColor,setHeaderColor] = useState('');
+const [showColores,setShowColores] = useState('d-none');
+const [image,setImage] = useState();
+const [project,setProject] = useState('');
+const [interest,setInterest] = useState('');
+const [address,setAddress] = useState('');
+const [DoB,setDob]= useState('');
+const [downloadBtn,setDownloadBtn] = useState('d-none')
 
- const showData =(data) =>{
-  setName(data.name);
-  setJobTitle(data.jobTitle);
-  setSummery(data.summery);
-  setExperience(data.experince);
-  setPost(data.post);
-  setStartDate(data.startDate);
-  setEndDate(data.endDate);
-  setUniversity(data.university);
-  setFaculty(data.faculty);
-  setDegree(data.degree);
-  setStartUni(data.startUni);
-  setEndUni(data.endUni);
-  setSkills(data.skills);
-  setPhone(data.phone);
-  setEmail(data.email);
-  setLinkedin(data.linkedin)
-  setProject(data.project);
-  setInterest(data.interest);
-  setLanguage(data.language);
-  setLanguage_level(data.language_level);
-  setBodyColor(data.bodyColor);
-  setBodyFontColor(data.bodyFontColor);
-  setHeaderColor(data.headerColor);
-  
-  // setNewLanguage(data.NewLanguage);
-  // setNewLanguage_level(data.NewLanguage_level)
+const [showLiveCenter,setShowLiveCenter] = useState('row');
+const [style,setStyle] = useState('d-none col d-sm-block');
+const [inputes,setInputes] = useState('col-sm');
+
+const[ca,setCa] = useState('');
+
+
+const showData =(data,newLang,NewLanglevel) =>{
+ setName(data.name);
+ setLastName(data.lastName)
+ setJobTitle(data.jobTitle);
+ setSummery(data.summery);
+ setExperience(data.experince);
+ setExp_Description(data.exp_description)
+ setPost(data.post);
+ setStartDate(data.startDate);
+ setEndDate(data.endDate);
+ setUniversity(data.university);
+ setFaculty(data.faculty);
+ setDegree(data.degree);
+ setStartUni(data.startUni);
+ setEndUni(data.endUni);
+ setSkills(data.skills);
+ setPhone(data.phone);
+ setEmail(data.email);
+ setAddress(data.address);
+ setLinkedin(data.linkedin)
+ setProject(data.project);
+ setInterest(data.interests);
+ setLanguage(data.language);
+ setLanguage_level(data.language_level);
+ setNewLanguage(newLang);
+ setNewLanguage_level(NewLanglevel);
+ 
+ 
+ 
+ 
 }
-const showProf = (img) =>{
+
+const changeColor = (bodyColor,bodyFontColor,headerColor) =>{
+  setBodyColor(bodyColor);
+  setBodyFontColor(bodyFontColor);
+  setHeaderColor(headerColor);
+
+}
+
+
+ const showProf = (img,changeStyle) =>{
   setImage(img)
-}
-  
-const showDownloadBtn = (showBtn) =>{
-  setDownloadBtn('d-block')
-}
-const creatPdf = () =>{
-  let doc = new jsPDF('p','pt','a4');
-  doc.html(document.querySelector('#full_CV'),{
-    callback:function(pdf){
-      let pageCount = doc.internal.getNumberOfPages();
-      pdf.deletePage(pageCount)
-      pdf.save('my Cv')
-    }
-  });
-};
 
+ }
+
+
+const creatPdf = () =>{
+    let doc = new jsPDF('p','pt','a4');
+    doc.html(document.querySelector('#full_CV'),{
+      callback:function(pdf){
+        let pageCount = doc.internal.getNumberOfPages();
+        pdf.deletePage(pageCount)
+        pdf.save('my Cv')
+      }
+    });
+  };
+
+  const showDownloadBtn = (showBtn) =>{
+    setDownloadBtn('d-block')
+    setShowColores('d-block')
+    setInputes('')
+    setStyle('d-block ');
+   setShowLiveCenter('showLive');
+  }
 return(<>
 
-<div className='row bg-dark'>
-  <div className='col-sm'>
-    <InternForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
+<div className={`bg-dark ${showLiveCenter}`} >
+  <div className={`${inputes}`}>
+     <InternForms onMouseDown={showDownloadBtn} onChange={showData} onClick={showProf}/>
   </div>
-    <div className={`col-sm`} >
-      <div className="template2 mx-2"  >  
-        <div className="row p-2 pure-cv" id="full_CV"  style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
-          <div className="col-6 one" >
-            <div className="shadow"  style={{backgroundColor:`${headerColor}`}}>
-              <div className="ps-2  pt-4"><img src={image}  className="prof2" width="150" height="200"  /></div>
-         
-                <div className="mt-3  ps-2"> 
-                  <h2>Profile</h2>
-                  <p>{summery}</p>
-                    <div className="mt-3">
-                      <h2 className=" border-bottom border-primary">Contact</h2>
-                      <div className="">
-                        <h6>Phone</h6>
-                        <p className="px-1">{phone}</p>
-                        <h6 className="px-1">Social media:</h6>
-                        <p className="px-1">{linkedin}</p>
-                        <h6 className="px-1"> E-mail:</h6>
-                        <p className="px-1">{email}</p>
-                      </div>
-                    </div>
+    <div className={`${style} `}>
+      <div className="template2" >
+        <div className={`pure-cv`} id="full_CV" style={{backgroundColor:`${bodyColor}`, color:`${bodyFontColor}`}}>
+          
+          <div className=""  >
+            <div className="center" style={{color:`${bodyColor}`,background:`${headerColor}`}}>
+              <div className="mt-3 px-3 py-2" style={{border:`1px solid ${bodyFontColor}`}}>
+                <h4 className=""  >{name} {lastName}</h4>
+                <p  className="" >{jobTitle}</p>
+              </div>
+
+              <div className="mt-2 pb-2 text-center " style={{fontSize:'10px', borderBottom:`2px solid ${bodyFontColor}`}}>
+                <div className="px-4">
+                  <span className="border-end  border-dark px-1"><strong>E-mail : </strong>{email}</span>
+                  <span className="border-end  border-dark px-1"><strong>PHONE :  </strong>{phone}</span>
+                  <span className="border-end  border-dark px-1"><strong>ADDRESS :</strong> {address}</span>
                 </div>
               </div>
-            </div>
-          
-            <div className="col-6 mt-2 two px-3">
-              <h2 className="text-uppercase">{name}</h2>
-              <h4 className="mt-1 text-uppercase">{lastName}</h4>
-              <h5 className="px-1">{jobTitle}</h5>
-              <h2 className="mt-4">Education</h2>
-                {university} at {faculty} in {degree} {`${startUni} - ${endUni}`}
-              <h2 className="mt-3">Experience</h2>
-              <p> work in <b>{experience}</b>: <br /> <b>{post}</b> position Start <br /> {`${startDate} to ${endDate}`} </p>
-              <h2>Skills</h2>
-                {[skills.split(',').map((skill,ind) =><span className="mx-1 badge bg-primary" key={ind}>{skill}</span>)]}
 
-              <h2>Language</h2>
-                {[language].map((lang,ind) => <li key={ind}>{lang} / {language_level} </li>)}
-                 {/* {[NewLanguage.map((lang,index) => <li className="" key={index}>{lang} / {NewLanguage_level[index]}</li>)]} */}
-
+              <div className="mt-3 px-2">
+                <p className="text-justify text-center ">{summery}</p> 
+              </div>
             </div>
 
+            <div className=" mt-3 row px-4" style={{borderTop:`1px solid ${headerColor}`}}>
+              <div className="col-5 " style={{borderRight:`1px solid ${headerColor}`}}>
+                <div >
+                  <p className=" text-capitalize fw-bold" style={{borderBottom:`1px solid ${headerColor}`}}>Education</p>
+                  <span className="fw-bold">{degree} of {faculty}</span><br />
+                  <span className="opacity-75 fw-bold">university of {university}</span><br />
+                  <span className="fw-bold"><small style={{color:`${bodyFontColor}`}}>{startUni} - {endUni}</small></span><br />
+                </div>
+
+                <div>
+                  <p className=" mt-4text-capitalize fw-bold" style={{borderBottom:`1px solid ${headerColor}`}}>Interest</p>
+                  {[interest.split(',').map((int,ind) =><li className="mx-1 " 
+                  style={{background:`${bodyColor}`,color:`${bodyFontColor}`}} key={ind}>{int}</li>)]}
+                </div>
+
+              </div>
+
+              <div className="col px-3">
+                <div>
+                  <p className="text-capitalize fw-bold" style={{borderBottom:`1px solid ${headerColor}`}}>Work Experience</p>
+                 
+                  <div className="row">
+                    <span className="col-8 fw-bold">{post} <br />
+                      {startDate} - {endDate}
+                    </span>
+                    <span className="col fw-bold float-end opacity-75">{experience}</span>
+                    <p className="mt-2">{exp_description}</p>
+                  </div>
+
+                  <div>
+                    <p className="text-capitalize fw-bold" style={{borderBottom:`1px solid ${headerColor}`}}>skills</p>
+                      <div className="p-3" >
+                        <span className=''>
+                          {[skills.split(',').map((skill,ind) =><span className="mx-1  badge p-2" style={{background:`${headerColor}`,color:`${bodyColor}`}} key={ind}>{skill}</span>)]} 
+                        </span>
+                      </div> 
+                  </div>
+                  
+                  <div>
+                    <p className="text-capitalize fw-bold" style={{borderBottom:`1px solid ${headerColor}`}}>Languages</p>
+                    <ol>{language} / <span className="opacity-75">{language_level}</span></ol> 
+                    {NewLanguage.map((lang,index) => <ol className="" key={index}>{lang} / <span className="opacity-75">{NewLanguage_level[index]}</span></ol>)}
+                  </div>
+
+                  
+                </div>
+              </div>
+              
+            </div>
           </div>
 
-          <button onClick={creatPdf} className={`btn btn-warning mx-4 mb-3 float-end ${downloadBtn}`}>Download PDF</button>
-
         </div>
+            <button onClick={creatPdf} className={`${downloadBtn} mx-4 btn btn-warning mb-3 float-end`}>Download PDF</button>
+            <div className={`${showColores}`}><Colores onChange={changeColor} /></div> 
       </div>
   </div>
+</div>
 
-         
-</>
-  )
 
+
+
+</>)
 }
 
 export default Template1;
